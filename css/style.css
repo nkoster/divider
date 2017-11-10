@@ -1,0 +1,34 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+#w-drag1 {
+    position: absolute;
+    left: 0px;
+    top: 0;
+    width: 100px;
+    height: 100vh;
+    background: #aaa;
+}
+#e-drag1 {
+    position: absolute;
+    left: 100px;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    background: #ccc;
+}
+#drag1 {
+    position: absolute;
+    left: 100px;
+    top: 0;
+    width: 6px;
+    height: 100vh;
+    background: #555;
+    cursor: ew-resize;
+    z-index: 999;
+}
+iframe {
+    pointer-events: none;
+    border: none;
+}
