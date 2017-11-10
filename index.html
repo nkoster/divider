@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        #w-drag1 {
+            position: absolute;
+            left: 0px;
+            top: 0;
+            width: 100px;
+            height: 100vh;
+            background: #aaa;
+        }
+        #e-drag1 {
+            position: absolute;
+            left: 100px;
+            top: 0;
+            right: 0;
+            height: 100vh;
+            background: #ccc;
+        }
+        #drag1 {
+            position: absolute;
+            left: 100px;
+            top: 0;
+            width: 6px;
+            height: 100vh;
+            background: #555;
+            cursor: ew-resize;
+            z-index: 999;
+        }
+        iframe {
+            pointer-events: none;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="w-drag1"><iframe height="100%" width="100%" src="http://192.168.1.213:8080"></iframe></div>
+<div id="drag1" draggable="true"></div>
+<div id="e-drag1"><iframe height="100%" width="100%" src="http://192.168.1.213:8082"></iframe></div>
+<script>
+    window.onload = addListeners;
+
+    function addListeners() {
+        document.getElementById('drag1').addEventListener('mousedown', mouseDown, false);
+        window.addEventListener('mouseup', mouseUp, false)
+    }
+
+    function mouseUp() {
+        //var drag = document.getElementById('drag1');
+        //drag.style.pointerEvents = pe;
+        window.removeEventListener('mousemove', dragMove, true)
+    }
+
+    function mouseDown(e) {
+        //var drag = document.getElementById('drag1');
+        //drag.style.pointerEvents = pe;
+        window.addEventListener('mousemove', dragMove, true)
+    }
+
+    function dragMove(e) {
+        var drag = document.getElementById('drag1');
+        drag.style.position = 'absolute';
+        drag.style.top = '0';
+        drag.style.left = e.clientX + 'px';
+        var west = document.getElementById('w-drag1');
+        west.style.position = 'absolute';
+        west.style.top = '0';
+        west.style.width = e.clientX + 'px';
+        var east = document.getElementById('e-drag1');
+        east.style.position = 'absolute';
+        east.style.top = '0';
+        east.style.left = e.clientX + 'px';
+        east.style.right = 0
+    }
+</script>
+
+</body>
+</html>
