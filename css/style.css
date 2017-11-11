@@ -1,6 +1,7 @@
 * {
     padding: 0;
     margin: 0;
+    border: none;
 }
 #w-drag1 {
     position: absolute;
@@ -30,5 +31,4 @@
 }
 iframe {
     pointer-events: none;
-    border: none;
 }
