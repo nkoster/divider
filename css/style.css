@@ -3,7 +3,7 @@
     margin: 0;
     border: none;
 }
-#w-drag1 {
+#drag0-w {
     position: absolute;
     left: 0;
     top: 0;
@@ -11,7 +11,7 @@
     height: 100vh;
     background: #aaa;
 }
-#e-drag1 {
+#drag0-e {
     position: absolute;
     left: 100px;
     top: 0;
@@ -19,15 +19,25 @@
     height: 100vh;
     background: #ccc;
 }
-#drag1 {
+#drag0 {
     position: absolute;
     left: 100px;
     top: 0;
-    width: 6px;
+    width: 8px;
     height: 100vh;
-    background: #555;
+    background: none;
     cursor: ew-resize;
     z-index: 999;
+}
+#drag0-in {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    height: 100vh;
+    width: 2px;
+    background: lightseagreen;
+    cursor: ew-resize;
+    z-index: 998;
 }
 iframe {
     pointer-events: none;
