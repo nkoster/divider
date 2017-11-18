@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>create element</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div id="main"></div>
+
+<script>
+
+    var
+        mX = (screen.width / 2).toFixed(),
+        counter = 0;
+
+    function newElement(parentId, newId, background) {
+
+
+        var
+            dWest = document.createElement("div"),
+            node = document.createTextNode("Hi!"),
+            element = document.getElementById(parentId);
+
+        newEl.setAttribute('id', 'd');
+        newEl.appendChild(node);
+        element.appendChild(newEl);
+
+        var
+            width = (parseInt(document.getElementById(parentId).style.width) / 2).toFixed();
+
+        if (parentId === 'main') width = screen.width;
+
+        console.log(width);
+
+        document.getElementById(newId).style.position = 'absolute';
+        document.getElementById(newId).style.right = '0';
+        document.getElementById(newId).style.top = '0';
+        document.getElementById(newId).style.width = width + (width === 0 ? '' : 'px');
+        document.getElementById(newId).style.height = '100vh';
+        document.getElementById(newId).style.background = background;
+    }
+
+    newElement('main', 'div1', 'lightgreen');
+    newElement('div1', 'div2', 'lightblue');
+    newElement('div2', 'div3', 'green');
+    newElement('div3', 'div4', 'orange');
+    newElement('div4', 'div5', 'pink');
+    newElement('div5', 'div6', 'yellow');
+
+</script>
+
+</body>
+</html>
