@@ -1,5 +1,7 @@
 (function () {
 
+    window.onload = addListeners;
+
     var
         mX = (screen.width / 2).toFixed(),
         counter = 1;
@@ -52,13 +54,56 @@
         document.getElementById(dHorId).style.background = 'black';
         document.getElementById(dHorId).style.cursor = 'ew-resize';
         document.getElementById(dHorId).style.zIndex = '999';
+        document.getElementById(dHorId).addEventListener('mousedown', mouseDown, false);
 
         counter += 1;
     }
 
+    function reArrangeX(dragObj) {
+        var drag = document.getElementById(dragObj.id);
+        if (drag !== null) {
+            drag.style.position = 'absolute';
+            drag.style.top = '0';
+            drag.style.left = dragObj.x + 'px';
+            var west = document.getElementById(dragObj.id + '-w');
+            west.style.position = 'absolute';
+            west.style.top = '0';
+            west.style.width = dragObj.x + 'px';
+            var east = document.getElementById(dragObj.id + '-e');
+            east.style.position = 'absolute';
+            east.style.top = '0';
+            east.style.left = dragObj.x + 'px';
+            east.style.right = '0';
+            east.style.width = (drag.parentElement.clientWidth - dragObj.x) + 'px';
+            //console.log('-- ' + (drag.parentElement.clientWidth - dragObj.x) + ' -- ' + document.getElementById(east.parentNode.id).style.cursor);
+        }
+    }
+
+    function addListeners() {
+        window.addEventListener('mouseup', mouseUp, false)
+    }
+
+    function mouseUp() {
+        window.removeEventListener('mousemove', dragMove, true)
+    }
+
+    function mouseDown() {
+        window.addEventListener('mousemove', dragMove, true)
+    }
+
+    function dragMove(e) {
+        e = e || window.event;
+        var elementId = (e.target || e.srcElement).id;
+        if (elementId.indexOf('-') > 0)
+            elementId = elementId.replace(/-.*/, '');
+        //console.log(elementId);
+        reArrangeX({ x: e.clientX, id: elementId });
+    }
+
     newElement('lightgreen');
-    newElement('lightblue');
-    newElement('yellow');
-    newElement('red');
+    //newElement('lightblue');
+    //newElement('yellow');
+    //newElement('red');
+    //newElement('blue');
 
 })();
