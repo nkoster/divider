@@ -30,7 +30,7 @@
 
         if (counter === 1) width = (screen.width / 2).toFixed();
 
-        console.log(width);
+        //console.log(width);
 
         document.getElementById(dWestId).style.position = 'absolute';
         document.getElementById(dWestId).style.left = '0';
@@ -62,21 +62,31 @@
     function reArrangeX(dragObj) {
         var drag = document.getElementById(dragObj.id);
         if (drag !== null) {
+            var
+                pId = (parseInt(dragObj.id.substr(1)) - 1);
+
+            if (pId > 0) {
+                parentWestWidth = parseInt(document.getElementById('d' + pId + '-w').style.width);
+            } else {
+                parentWestWidth = '0';
+            }
             drag.style.position = 'absolute';
             drag.style.top = '0';
-            drag.style.left = dragObj.x + 'px';
+            drag.style.left = (dragObj.x - parentWestWidth) + 'px';
             var west = document.getElementById(dragObj.id + '-w');
             west.style.position = 'absolute';
             west.style.top = '0';
-            west.style.width = dragObj.x + 'px';
+            west.style.width = (dragObj.x - parentWestWidth) + 'px';
             var east = document.getElementById(dragObj.id + '-e');
             east.style.position = 'absolute';
             east.style.top = '0';
-            east.style.left = dragObj.x + 'px';
+            east.style.left = (dragObj.x - parentWestWidth) + 'px';
             east.style.right = '0';
-            east.style.width = (drag.parentElement.clientWidth - dragObj.x) + 'px';
+            east.style.width = (drag.parentElement.clientWidth - (dragObj.x - parentWestWidth)) + 'px';
             //console.log('-- ' + (drag.parentElement.clientWidth - dragObj.x) + ' -- ' + document.getElementById(east.parentNode.id).style.cursor);
         }
+            console.log(east.parentNode.id);
+            console.log((parseInt(dragObj.id.substr(1)) - 1) + ' --- ' + parentWestWidth);
     }
 
     function addListeners() {
@@ -101,7 +111,7 @@
     }
 
     newElement('lightgreen');
-    //newElement('lightblue');
+    newElement('lightblue');
     //newElement('yellow');
     //newElement('red');
     //newElement('blue');
