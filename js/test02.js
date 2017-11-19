@@ -73,21 +73,23 @@
                 }
             }
 
-            drag.style.position = 'absolute';
-            drag.style.top = '0';
-            drag.style.left = (dragObj.x - parentWestWidth) + 'px';
-            var west = document.getElementById(dragObj.id + '-w');
-            west.style.position = 'absolute';
-            west.style.top = '0';
-            west.style.width = (dragObj.x - parentWestWidth) + 'px';
-            var east = document.getElementById(dragObj.id + '-e');
-            east.style.position = 'absolute';
-            east.style.top = '0';
-            east.style.left = (dragObj.x - parentWestWidth) + 'px';
-            east.style.right = '0';
-            east.style.width = (drag.parentElement.clientWidth - (dragObj.x - parentWestWidth)) + 'px';
+            if (dragObj.x - parentWestWidth > 7) {
+                drag.style.position = 'absolute';
+                drag.style.top = '0';
+                drag.style.left = (dragObj.x - parentWestWidth) + 'px';
+                var west = document.getElementById(dragObj.id + '-w');
+                west.style.position = 'absolute';
+                west.style.top = '0';
+                west.style.width = (dragObj.x - parentWestWidth) + 'px';
+                var east = document.getElementById(dragObj.id + '-e');
+                east.style.position = 'absolute';
+                east.style.top = '0';
+                east.style.left = (dragObj.x - parentWestWidth) + 'px';
+                east.style.right = '0';
+                east.style.width = (drag.parentElement.clientWidth - (dragObj.x - parentWestWidth)) + 'px';
+            }
         }
-        //console.log(pId + ' -- ' + parentWestWidth);
+        console.log(pId + ' -- ' + (dragObj.x - parentWestWidth));
     }
 
     function addListeners() {
@@ -114,7 +116,7 @@
     newElement('lightgreen');
     newElement('lightblue');
     newElement('yellow');
-    //newElement('red');
-    //newElement('blue');
+    newElement('pink');
+    newElement('blue');
 
 })();
