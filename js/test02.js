@@ -63,13 +63,16 @@
         var drag = document.getElementById(dragObj.id);
         if (drag !== null) {
             var
-                pId = (parseInt(dragObj.id.substr(1)) - 1);
+                pId = (parseInt(dragObj.id.substr(1)) - 1),
+                parentWestWidth = 0;
 
             if (pId > 0) {
-                parentWestWidth = parseInt(document.getElementById('d' + pId + '-w').style.width);
-            } else {
-                parentWestWidth = '0';
+                var i;
+                for (i = 1; i <= pId; i++) {
+                    parentWestWidth += parseInt(document.getElementById('d' + i + '-w').style.width);
+                }
             }
+
             drag.style.position = 'absolute';
             drag.style.top = '0';
             drag.style.left = (dragObj.x - parentWestWidth) + 'px';
@@ -83,10 +86,8 @@
             east.style.left = (dragObj.x - parentWestWidth) + 'px';
             east.style.right = '0';
             east.style.width = (drag.parentElement.clientWidth - (dragObj.x - parentWestWidth)) + 'px';
-            //console.log('-- ' + (drag.parentElement.clientWidth - dragObj.x) + ' -- ' + document.getElementById(east.parentNode.id).style.cursor);
         }
-            console.log(east.parentNode.id);
-            console.log((parseInt(dragObj.id.substr(1)) - 1) + ' --- ' + parentWestWidth);
+        //console.log(pId + ' -- ' + parentWestWidth);
     }
 
     function addListeners() {
@@ -112,7 +113,7 @@
 
     newElement('lightgreen');
     newElement('lightblue');
-    //newElement('yellow');
+    newElement('yellow');
     //newElement('red');
     //newElement('blue');
 
