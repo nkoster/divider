@@ -30,8 +30,6 @@
 
         if (counter === 1) width = (screen.width / 2).toFixed();
 
-        //console.log(width);
-
         document.getElementById(dWestId).style.position = 'absolute';
         document.getElementById(dWestId).style.left = '0';
         document.getElementById(dWestId).style.top = '0';
@@ -73,7 +71,7 @@
                 }
             }
 
-            if (dragObj.x - parentWestWidth > 7) {
+            if (dragObj.x - parentWestWidth > 8) {
                 drag.style.position = 'absolute';
                 drag.style.top = '0';
                 drag.style.left = (dragObj.x - parentWestWidth) + 'px';
@@ -109,14 +107,18 @@
         var elementId = (e.target || e.srcElement).id;
         if (elementId.indexOf('-') > 0)
             elementId = elementId.replace(/-.*/, '');
-        //console.log(elementId);
         reArrangeX({ x: e.clientX, id: elementId });
     }
 
     newElement('lightgreen');
     newElement('lightblue');
     newElement('yellow');
-    newElement('pink');
-    newElement('blue');
+    //newElement('pink');
+    //newElement('blue');
+
+    var i;
+    for (i=1; i<counter; i++) {
+        reArrangeX({ x: 1, id: 'd' + i});
+    }
 
 })();
