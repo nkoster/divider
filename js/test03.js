@@ -22,9 +22,9 @@
             slideLimitRight = screen.width,
             slideLimitLeft = parseInt(prev.style.left);
 
-        // if (eId !== 1) {
-        //     slideLimitRight = parseInt(document.getElementById('d' + (eId + 2))).style.left;
-        // }
+         if (eId < (counter - 2)) {
+             slideLimitRight = parseInt(document.getElementById('d' + (eId + 2)).style.left);
+         }
 
         if (!slideLimitRight) slideLimitRight = screen.width;
         if (isNaN(slideLimitLeft)) slideLimitLeft = 0;
@@ -33,7 +33,7 @@
             next.style.left = e.clientX + (e.clientX === 0 ? '' : 'px');
         }
 
-        document.getElementById('debug').innerText = slideLimitLeft + ' ' + slideLimitRight;
+        document.getElementById('debug').innerText = counter + ' ' + slideLimitLeft + ' ' + slideLimitRight;
 
     }
 
