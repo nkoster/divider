@@ -2,6 +2,84 @@
 
     window.onload = addListeners;
 
+    var
+        counter = 1;
+
+    function dragMove(e) {
+        e = e || window.event;
+        var
+            elementId = (e.target || e.srcElement).id,
+            eId = parseInt(elementId.substr(1));
+
+        if (eId % 2 === 0) {
+            eId++;
+            elementId = 'd' + eId;
+        }
+        var
+            drag = document.getElementById(elementId),
+            prev = document.getElementById('d' + (eId - 1)),
+            next = document.getElementById('d' + (eId + 1)),
+            slideLimitRight = screen.width,
+            slideLimitLeft = parseInt(prev.style.left);
+
+        // if (eId !== 1) {
+        //     slideLimitRight = parseInt(document.getElementById('d' + (eId + 2))).style.left;
+        // }
+
+        if (!slideLimitRight) slideLimitRight = screen.width;
+        if (isNaN(slideLimitLeft)) slideLimitLeft = 0;
+        if ((e.clientX > (slideLimitLeft + 20)) && (e.clientX < (slideLimitRight - 20))) {
+            drag.style.left = e.clientX + (e.clientX === 0 ? '' : 'px');
+            next.style.left = e.clientX + (e.clientX === 0 ? '' : 'px');
+        }
+
+        document.getElementById('debug').innerText = slideLimitLeft + ' ' + slideLimitRight;
+
+    }
+
+    function newPart(background) {
+        
+        var
+            body = document.getElementsByTagName('body')[0],
+            dSliderLeft = screen.width,
+            dSlider = document.createElement("div"),
+            dSliderId = 'd' + counter,
+            dContent = document.createElement("div"),
+            dContentId = 'd' + (counter + 1);
+
+        for (var i = 0; i < counter; i += 2) {
+            dSliderLeft = screen.width - (dSliderLeft / 2);
+        }
+
+        dSlider.setAttribute('id', dSliderId);
+        dContent.setAttribute('id', dContentId);
+
+        body.appendChild(dSlider);
+        body.appendChild(dContent);
+
+        document.getElementById(dSliderId).style.position = 'absolute';
+        document.getElementById(dSliderId).style.left = dSliderLeft + 'px';
+        document.getElementById(dSliderId).style.top = '0';
+        document.getElementById(dSliderId).style.width = '10px';
+        document.getElementById(dSliderId).style.height = '100vh';
+        document.getElementById(dSliderId).style.background = '#999999';
+        document.getElementById(dSliderId).style.cursor = 'ew-resize';
+        document.getElementById(dSliderId).style.zIndex = '999';
+
+        document.getElementById(dContentId).style.position = 'absolute';
+        document.getElementById(dContentId).style.left = dSliderLeft + 'px';
+        document.getElementById(dContentId).style.top = '0';
+        document.getElementById(dContentId).style.right = '0';
+        document.getElementById(dContentId).style.height = '100vh';
+        document.getElementById(dContentId).style.background = background;
+
+        document.getElementById(dSliderId).addEventListener('mousedown', mouseDown, true);
+
+        counter += 2;
+        console.log(body.id + ' ' + counter + ' ' + dSliderLeft);
+
+    }
+
     function addListeners() {
         window.addEventListener('mouseup', mouseUp, false)
     }
@@ -14,36 +92,7 @@
         window.addEventListener('mousemove', dragMove, true)
     }
 
-    function dragMove(e) {
-        e = e || window.event;
-        var
-            elementId = (e.target || e.srcElement).id,
-            eId = parseInt(elementId.substr(1)),
-            realId = elementId;
-        if (eId % 2 === 0) {
-            eId++;
-            elementId = 'd' + eId;
-        }
-        try {
-            var
-                drag = document.getElementById(elementId),
-                prev = document.getElementById(document.getElementById(elementId).previousElementSibling.id),
-                next = document.getElementById(document.getElementById(elementId).nextElementSibling.id),
-                slideLimitRight = parseInt(document.getElementById(next.nextElementSibling.id).style.left),
-                slideLimitLeft = parseInt(prev.style.left);
-            if (!slideLimitRight) slideLimitRight = screen.width;
-            if (isNaN(slideLimitLeft)) slideLimitLeft = 0;
-            if ((e.clientX > (slideLimitLeft + 20)) && (e.clientX < (slideLimitRight - 20))) {
-                drag.style.left = e.clientX + (e.clientX === 0 ? '' : 'px');
-                next.style.left = e.clientX + (e.clientX === 0 ? '' : 'px');
-            }
-            document.getElementById('debug').innerText = elementId;
-        } catch (e) {
-            document.getElementById('debug').innerText = 'error: ' + realId;
-        }
-    }
-
-    document.getElementById('d1').addEventListener('mousedown', mouseDown, true);
-    document.getElementById('d3').addEventListener('mousedown', mouseDown, true);
+    newPart('red');
+    newPart('blue');
 
 })();
