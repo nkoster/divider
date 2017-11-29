@@ -17,12 +17,9 @@ iframe {
     left: 10px;
     top: 10px;
     padding: 4px;
-    border: 1px solid red;
-    color: white;
+    color: black;
     font-weight: bold;
-    background: #444;
-    opacity: 0.6;
-    z-index: 999;
+    z-index: 1000;
 }
 
 #d0 {
