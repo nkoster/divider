@@ -47,9 +47,10 @@
             dContent = document.createElement("div"),
             dContentId = 'd' + (counter + 1);
 
-        for (var i = 0; i < counter; i += 2) {
-            dSliderLeft = screen.width - (dSliderLeft / 2);
+        for (var i = 1; i <= counter; i += 2) {
+            dSliderLeft = dSliderLeft / 2;
         }
+        dSliderLeft = screen.width - dSliderLeft;
 
         dSlider.setAttribute('id', dSliderId);
         dContent.setAttribute('id', dContentId);
@@ -76,7 +77,7 @@
         document.getElementById(dSliderId).addEventListener('mousedown', mouseDown, true);
 
         counter += 2;
-        console.log(body.id + ' ' + counter + ' ' + dSliderLeft);
+        console.log(counter + ' ' + dSliderLeft);
 
     }
 
@@ -94,5 +95,6 @@
 
     newPart('red');
     newPart('blue');
+    newPart('yellow');
 
 })();
