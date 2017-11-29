@@ -33,7 +33,7 @@
             next.style.left = e.clientX + (e.clientX === 0 ? '' : 'px');
         }
 
-        document.getElementById('debug').innerText = counter + ' ' + slideLimitLeft + ' ' + slideLimitRight;
+        document.getElementById('debug').innerText = e.clientX;
 
     }
 
@@ -77,7 +77,6 @@
         document.getElementById(dSliderId).addEventListener('mousedown', mouseDown, true);
 
         counter += 2;
-        console.log(counter + ' ' + dSliderLeft);
 
     }
 
@@ -93,8 +92,17 @@
         window.addEventListener('mousemove', dragMove, true)
     }
 
-    newPart('red');
-    newPart('blue');
-    newPart('yellow');
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    for (var i = 0; i < 2; i++) {
+        newPart(getRandomColor())
+    }
 
 })();
