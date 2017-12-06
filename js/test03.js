@@ -1,25 +1,22 @@
 (function () {
 
-    window.onload = addListeners;
-
     var
         debug = false,
         counter = 1;
+        dragObj = null;
 
     function dragMove(e) {
 
+        if (dragObj == null)
+            return;
+
         e = e || window.event;
+
         var
-            elementId = (e.target || e.srcElement).id,
+            elementId = dragObj.id,
             eId = parseInt(elementId.substr(1));
 
-        if (eId % 2 === 0) {
-            eId++;
-            elementId = 'd' + eId;
-        }
-
         var
-            drag = document.getElementById(elementId),
             prev = document.getElementById('d' + (eId - 1)),
             next = document.getElementById('d' + (eId + 1)),
             slideLimitRight = screen.width,
@@ -31,13 +28,21 @@
 
         if (!slideLimitRight) slideLimitRight = screen.width;
         if (isNaN(slideLimitLeft)) slideLimitLeft = 0;
-        if ((e.clientX > (slideLimitLeft + 20)) && (e.clientX < (slideLimitRight - 20))) {
-            if (drag !== null) drag.style.left = e.clientX + (e.clientX === 0 ? '' : 'px');
+        if ((e.clientX > (slideLimitLeft + 10)) && (e.clientX < (slideLimitRight - 10))) {
+            if (dragObj !== null) dragObj.style.left = e.clientX + (e.clientX === 0 ? '' : 'px');
             if (next !== null) next.style.left = e.clientX + (e.clientX === 0 ? '' : 'px');
         }
 
         if (debug) document.getElementById('debug').innerText = e.clientX;
 
+    }
+
+    function draggable(id) {
+        var obj = document.getElementById(id);
+        obj.style.position = "absolute";
+        obj.onmousedown = function () {
+            dragObj = obj;
+        }
     }
 
     function newPart(background) {
@@ -65,7 +70,7 @@
         document.getElementById(dSliderId).style.background = '#999999';
         document.getElementById(dSliderId).style.cursor = 'ew-resize';
         document.getElementById(dSliderId).style.zIndex = '999';
-        document.getElementById(dSliderId).addEventListener('mouseup', mouseUp, false);
+        draggable(dSliderId);
 
         document.getElementById(dContentId).style.position = 'absolute';
         document.getElementById(dContentId).style.left = dSliderLeft + 'px';
@@ -73,8 +78,6 @@
         document.getElementById(dContentId).style.right = '0';
         document.getElementById(dContentId).style.height = '100vh';
         document.getElementById(dContentId).style.background = background;
-
-        document.getElementById(dSliderId).addEventListener('mousedown', mouseDown, true);
 
         for (var i = 0; i < counter - 1; i += 1) {
             if (i % 2 !== 0) {
@@ -87,17 +90,11 @@
 
     }
 
-    function addListeners() {
-        window.addEventListener('mouseup', mouseUp, false)
-    }
+    document.onmouseup = function (e) {
+        dragObj = null;
+    };
 
-    function mouseUp() {
-        window.removeEventListener('mousemove', dragMove, true)
-    }
-
-    function mouseDown() {
-        window.addEventListener('mousemove', dragMove, true)
-    }
+    document.onmousemove = dragMove;
 
     function getRandomColor() {
         var letters = '0123456789ABCDEF';
@@ -108,7 +105,7 @@
         return color;
     }
 
-    for (var i = 0; i < 20; i++) {
+    for (var i = 0; i < 10; i++) {
         newPart(getRandomColor())
     }
 
