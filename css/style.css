@@ -1,44 +1,32 @@
 * {
     padding: 0;
     margin: 0;
-    border: none;
+    border: 0;
 }
-#drag0-w {
+
+div {
+    overflow: hidden;
+}
+
+iframe {
+    pointer-events: none;
+}
+
+#debug {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    padding: 4px;
+    color: black;
+    font-weight: bold;
+    z-index: 1000;
+}
+
+#d0 {
     position: absolute;
     left: 0;
     top: 0;
-    width: 100px;
-    height: 100vh;
-    background: #aaa;
-}
-#drag0-e {
-    position: absolute;
-    left: 100px;
-    top: 0;
     right: 0;
     height: 100vh;
-    background: #ccc;
-}
-#drag0 {
-    position: absolute;
-    left: 100px;
-    top: 0;
-    width: 8px;
-    height: 100vh;
-    background: none;
-    cursor: ew-resize;
-    z-index: 999;
-}
-#drag0-in {
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    height: 100vh;
-    width: 2px;
-    background: lightseagreen;
-    cursor: ew-resize;
-    z-index: 998;
-}
-iframe {
-    pointer-events: none;
+    background: palegreen;
 }
