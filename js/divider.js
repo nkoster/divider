@@ -5,16 +5,16 @@
         counter = 1,
         dragObj = null;
 
-    function dragMove(e) {
+    function dragMove(event) {
 
         if (dragObj == null)
             return;
 
-        e = e || window.event;
+        event = event || window.event;
 
         var
             elementId = dragObj.id,
-            eId = parseInt(elementId.substr(1));
+            eId = parseInt(elementId.substr(1))
 
         var
             prev = document.getElementById('d' + (eId - 1)),
@@ -23,17 +23,17 @@
             slideLimitLeft = parseInt(prev.style.left);
 
         if (eId < (counter - 2)) {
-            slideLimitRight = parseInt(document.getElementById('d' + (eId + 2)).style.left);
+            slideLimitRight = parseInt(document.getElementById('d' + (eId + 2)).style.left)
         }
 
         if (!slideLimitRight) slideLimitRight = screen.width;
         if (isNaN(slideLimitLeft)) slideLimitLeft = 0;
-        if ((e.clientX > (slideLimitLeft + 10)) && (e.clientX < (slideLimitRight - 10))) {
-            if (dragObj !== null) dragObj.style.left = e.clientX + (e.clientX === 0 ? '' : 'px');
-            if (next !== null) next.style.left = e.clientX + (e.clientX === 0 ? '' : 'px');
+        if ((event.clientX > (slideLimitLeft + 10)) && (event.clientX < (slideLimitRight - 10))) {
+            if (dragObj !== null) dragObj.style.left = event.clientX + (event.clientX === 0 ? '' : 'px');
+            if (next !== null) next.style.left = event.clientX + (event.clientX === 0 ? '' : 'px')
         }
 
-        if (debug) document.getElementById('debug').innerText = e.clientX;
+        if (debug) document.getElementById('debug').innerText = event.clientX
 
     }
 
@@ -41,7 +41,7 @@
         var obj = document.getElementById(id);
         obj.style.position = "absolute";
         obj.onmousedown = function () {
-            dragObj = obj;
+            dragObj = obj
         }
     }
 
@@ -62,36 +62,35 @@
         body.appendChild(dSlider);
         body.appendChild(dContent);
 
-        document.getElementById(dSliderId).style.position = 'absolute';
-        document.getElementById(dSliderId).style.left = dSliderLeft + 'px';
-        document.getElementById(dSliderId).style.top = '0';
-        document.getElementById(dSliderId).style.width = '8px';
-        document.getElementById(dSliderId).style.height = '100vh';
-        document.getElementById(dSliderId).style.background = 'black';
-        document.getElementById(dSliderId).style.cursor = 'ew-resize';
-        document.getElementById(dSliderId).style.zIndex = '999';
+        dSlider.style.position = 'absolute';
+        dSlider.style.left = dSliderLeft + 'px';
+        dSlider.style.top = '0';
+        dSlider.style.width = '8px';
+        dSlider.style.height = '100vh';
+        dSlider.style.background = 'black';
+        dSlider.style.cursor = 'ew-resize';
+        dSlider.style.zIndex = '999';
         draggable(dSliderId);
 
-        document.getElementById(dContentId).style.position = 'absolute';
-        document.getElementById(dContentId).style.left = dSliderLeft + 'px';
-        document.getElementById(dContentId).style.top = '0';
-        document.getElementById(dContentId).style.right = '0';
-        document.getElementById(dContentId).style.height = '100vh';
-        document.getElementById(dContentId).style.background = background;
+        dContent.style.position = 'absolute';
+        dContent.style.left = dSliderLeft + 'px';
+        dContent.style.top = '0';
+        dContent.style.right = '0';
+        dContent.style.height = '100vh';
+        dContent.style.background = background;
 
         for (var i = 0; i < counter - 1; i += 1) {
             if (i % 2 !== 0) {
                 document.getElementById('d' + i).style.left = (((i+1) / 2) * offset) + 'px';
-                document.getElementById('d' + (i + 1)).style.left = (((i+1) / 2) * offset) + 'px';
+                document.getElementById('d' + (i + 1)).style.left = (((i+1) / 2) * offset) + 'px'
             }
         }
 
-        counter += 2;
-
+        counter += 2
     }
 
     document.onmouseup = function (e) {
-        dragObj = null;
+        dragObj = null
     };
 
     document.onmousemove = dragMove;
@@ -100,12 +99,14 @@
         var letters = '0123456789ABCDEF';
         var color = '#';
         for (var i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
+            color += letters[Math.floor(Math.random() * 16)]
         }
-        return color;
+        return color
     }
 
-    for (var i = 0; i < 10; i++) {
+    document.getElementById('d0').style.background = getRandomColor();
+
+    for (var i = 0; i < (Math.floor(Math.random() * 20)) + 1; i++) {
         newPart(getRandomColor())
     }
 
