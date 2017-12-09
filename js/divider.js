@@ -16,7 +16,6 @@
 
     var
         debug = false,
-        onResize = false,
         counter = 1,
         dragObj = null;
 
