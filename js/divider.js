@@ -40,7 +40,6 @@
             slideLimitRight = parseInt(document.getElementById('d' + (eId + 2)).style.left)
         }
 
-        if (!slideLimitRight) slideLimitRight = getWidth();
         if (isNaN(slideLimitLeft)) slideLimitLeft = 0;
         if ((event.clientX > (slideLimitLeft + 10)) && (event.clientX < (slideLimitRight - 10))) {
             if (dragObj !== null) dragObj.style.left = event.clientX + (event.clientX === 0 ? '' : 'px');
