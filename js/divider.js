@@ -1,17 +1,22 @@
 (function () {
 
     function getWidth() {
-        return Math.max(
-            document.body.scrollWidth,
-            document.documentElement.scrollWidth,
-            document.body.offsetWidth,
-            document.documentElement.offsetWidth,
-            document.documentElement.clientWidth
-        );
+        if (self.innerWidth) {
+            return self.innerWidth;
+        }
+
+        if (document.documentElement && document.documentElement.clientWidth) {
+            return document.documentElement.clientWidth;
+        }
+
+        if (document.body) {
+            return document.body.clientWidth;
+        }
     }
 
     var
         debug = false,
+        onResize = false,
         counter = 1,
         dragObj = null;
 
@@ -43,7 +48,7 @@
             if (next !== null) next.style.left = event.clientX + (event.clientX === 0 ? '' : 'px')
         }
 
-        if (debug) document.getElementById('debug').innerText = scrollX
+        if (debug) document.getElementById('debug').innerText = getWidth()
 
     }
 
@@ -99,7 +104,7 @@
         counter += 2
     }
 
-    var reOrder = function() {
+    window.onresize = function() {
         var
             offset = getWidth() / ((counter + 1) / 2);
         for (i = 0; i < counter - 1; i += 1) {
@@ -109,18 +114,6 @@
             }
         }
     };
-
-    window.onresize = function () {
-        setTimeout(reOrder, 100);
-    };
-
-    window.setInterval(function () {
-        var scrollX = (window.pageXOffset !== undefined) ? window.pageXOffset :
-            (document.documentElement || document.body.parentNode || document.body).scrollLeft;
-        if (scrollX > 0) {
-            reOrder()
-        }
-    }, 50);
 
     document.onmouseup = function (e) {
         dragObj = null
