@@ -24,7 +24,7 @@
 
         var
             elementId = dragObj.id,
-            eId = parseInt(elementId.substr(1))
+            eId = parseInt(elementId.substr(1));
 
         var
             prev = document.getElementById('d' + (eId - 1)),
@@ -43,7 +43,7 @@
             if (next !== null) next.style.left = event.clientX + (event.clientX === 0 ? '' : 'px')
         }
 
-        if (debug) document.getElementById('debug').innerText = event.clientX
+        if (debug) document.getElementById('debug').innerText = scrollX
 
     }
 
@@ -64,7 +64,7 @@
             dContent = document.createElement("div"),
             dContentId = 'd' + (counter + 1),
             offset = getWidth() / ((counter + 3) / 2),
-            dSliderLeft = offset + (((counter-1) / 2) * offset);
+            dSliderLeft = offset + (((counter - 1) / 2) * offset);
 
         dSlider.setAttribute('id', dSliderId);
         dContent.setAttribute('id', dContentId);
@@ -91,26 +91,36 @@
 
         for (var i = 0; i < counter - 1; i += 1) {
             if (i % 2 !== 0) {
-                document.getElementById('d' + i).style.left = (((i+1) / 2) * offset) + 'px';
-                document.getElementById('d' + (i + 1)).style.left = (((i+1) / 2) * offset) + 'px'
+                document.getElementById('d' + i).style.left = (((i + 1) / 2) * offset) + 'px';
+                document.getElementById('d' + (i + 1)).style.left = (((i + 1) / 2) * offset) + 'px'
             }
         }
 
         counter += 2
     }
 
-    window.onresize = function () {
-        setTimeout(function() {
-            var
-                offset = getWidth() / ((counter + 1) / 2);
-            for (i = 0; i < counter - 1; i += 1) {
-                if (i % 2 !== 0) {
-                    document.getElementById('d' + i).style.left = (((i + 1) / 2) * offset) + 'px';
-                    document.getElementById('d' + (i + 1)).style.left = (((i + 1) / 2) * offset) + 'px'
-                }
+    var reOrder = function() {
+        var
+            offset = getWidth() / ((counter + 1) / 2);
+        for (i = 0; i < counter - 1; i += 1) {
+            if (i % 2 !== 0) {
+                document.getElementById('d' + i).style.left = (((i + 1) / 2) * offset) + 'px';
+                document.getElementById('d' + (i + 1)).style.left = (((i + 1) / 2) * offset) + 'px'
             }
-        }, 2000)
+        }
     };
+
+    window.onresize = function () {
+        setTimeout(reOrder, 100);
+    };
+
+    window.setInterval(function () {
+        var scrollX = (window.pageXOffset !== undefined) ? window.pageXOffset :
+            (document.documentElement || document.body.parentNode || document.body).scrollLeft;
+        if (scrollX > 0) {
+            reOrder()
+        }
+    },500);
 
     document.onmouseup = function (e) {
         dragObj = null
