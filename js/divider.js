@@ -120,7 +120,7 @@
         if (scrollX > 0) {
             reOrder()
         }
-    },500);
+    }, 50);
 
     document.onmouseup = function (e) {
         dragObj = null
