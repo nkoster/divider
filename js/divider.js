@@ -1,5 +1,15 @@
 (function () {
 
+    function getWidth() {
+        return Math.max(
+            document.body.scrollWidth,
+            document.documentElement.scrollWidth,
+            document.body.offsetWidth,
+            document.documentElement.offsetWidth,
+            document.documentElement.clientWidth
+        );
+    }
+
     var
         debug = false,
         counter = 1,
@@ -19,14 +29,14 @@
         var
             prev = document.getElementById('d' + (eId - 1)),
             next = document.getElementById('d' + (eId + 1)),
-            slideLimitRight = screen.width,
+            slideLimitRight = getWidth(),
             slideLimitLeft = parseInt(prev.style.left);
 
         if (eId < (counter - 2)) {
             slideLimitRight = parseInt(document.getElementById('d' + (eId + 2)).style.left)
         }
 
-        if (!slideLimitRight) slideLimitRight = screen.width;
+        if (!slideLimitRight) slideLimitRight = getWidth();
         if (isNaN(slideLimitLeft)) slideLimitLeft = 0;
         if ((event.clientX > (slideLimitLeft + 10)) && (event.clientX < (slideLimitRight - 10))) {
             if (dragObj !== null) dragObj.style.left = event.clientX + (event.clientX === 0 ? '' : 'px');
@@ -53,7 +63,7 @@
             dSliderId = 'd' + counter,
             dContent = document.createElement("div"),
             dContentId = 'd' + (counter + 1),
-            offset = document.getElementById('d0').offsetWidth / ((counter + 3) / 2),
+            offset = getWidth() / ((counter + 3) / 2),
             dSliderLeft = offset + (((counter-1) / 2) * offset);
 
         dSlider.setAttribute('id', dSliderId);
@@ -89,6 +99,19 @@
         counter += 2
     }
 
+    window.onresize = function () {
+        setTimeout(function() {
+            var
+                offset = getWidth() / ((counter + 1) / 2);
+            for (i = 0; i < counter - 1; i += 1) {
+                if (i % 2 !== 0) {
+                    document.getElementById('d' + i).style.left = (((i + 1) / 2) * offset) + 'px';
+                    document.getElementById('d' + (i + 1)).style.left = (((i + 1) / 2) * offset) + 'px'
+                }
+            }
+        }, 2000)
+    };
+
     document.onmouseup = function (e) {
         dragObj = null
     };
@@ -106,7 +129,7 @@
 
     document.getElementById('d0').style.background = getRandomColor();
 
-    for (var i = 0; i < (Math.floor(Math.random() * 20)) + 1; i++) {
+    for (var i = 0; i < (Math.floor(Math.random() * 30)) + 1; i++) {
         newPart(getRandomColor())
     }
 
