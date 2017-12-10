@@ -8,10 +8,6 @@ div {
     overflow: hidden;
 }
 
-iframe {
-    pointer-events: none;
-}
-
 #debug {
     position: absolute;
     left: 10px;
