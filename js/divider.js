@@ -15,16 +15,18 @@
     }
 
     var
-        debug = false,
+        debug = true,
         counter = 1,
         dragObj = null;
 
     function dragMove(event) {
 
+        event = event || window.event;
+
+        if (debug) document.getElementById('debug').innerText = event.clientX + ',' + event.clientY;
+
         if (dragObj == null)
             return;
-
-        event = event || window.event;
 
         var
             elementId = dragObj.id,
@@ -45,8 +47,6 @@
             if (dragObj !== null) dragObj.style.left = event.clientX + (event.clientX === 0 ? '' : 'px');
             if (next !== null) next.style.left = event.clientX + (event.clientX === 0 ? '' : 'px')
         }
-
-        if (debug) document.getElementById('debug').innerText = getWidth()
 
     }
 
