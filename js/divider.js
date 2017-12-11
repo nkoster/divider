@@ -15,7 +15,7 @@
     }
 
     var
-        debug = true,
+        debug = false,
         counter = 1,
         dragObj = null;
 
@@ -23,16 +23,18 @@
 
         event = event || window.event;
 
-        if (debug) document.getElementById('debug').innerText = event.clientX + ',' + event.clientY;
+        if (debug) {
+            document.getElementById('debug').innerText =
+                (dragObj == null ? '' : dragObj.previousElementSibling.clientWidth) +
+                ' ' + event.clientX + ',' + event.clientY;
+        }
 
         if (dragObj == null)
             return;
 
         var
             elementId = dragObj.id,
-            eId = parseInt(elementId.substr(1));
-
-        var
+            eId = parseInt(elementId.substr(1)),
             prev = document.getElementById('d' + (eId - 1)),
             next = document.getElementById('d' + (eId + 1)),
             slideLimitRight = getWidth(),
@@ -44,8 +46,20 @@
 
         if (isNaN(slideLimitLeft)) slideLimitLeft = 0;
         if ((event.clientX > (slideLimitLeft + 10)) && (event.clientX < (slideLimitRight - 10))) {
-            if (dragObj !== null) dragObj.style.left = event.clientX + (event.clientX === 0 ? '' : 'px');
-            if (next !== null) next.style.left = event.clientX + (event.clientX === 0 ? '' : 'px')
+            dragObj.style.left = event.clientX + (event.clientX === 0 ? '' : 'px');
+            if (next !== null) {
+                next.style.left = event.clientX + (event.clientX === 0 ? '' : 'px');
+                if (next.nextElementSibling) {
+                    next.style.width = (parseInt(next.nextElementSibling.style.left) -
+                        parseInt(event.clientX) + 1) + 'px'
+                } else {
+                    next.style.width = getWidth() - parseInt(event.clientX) + 'px'
+                }
+            }
+            prev.style.width = (parseInt(dragObj.style.left) - parseInt(prev.style.left)) + 'px';
+            if (dragObj.id === 'd1') {
+                document.getElementById('d0').style.width = event.clientX + 'px'
+            }
         }
 
     }
@@ -96,6 +110,8 @@
             if (i % 2 !== 0) {
                 document.getElementById('d' + i).style.left = (((i + 1) / 2) * offset) + 'px';
                 document.getElementById('d' + (i + 1)).style.left = (((i + 1) / 2) * offset) + 'px'
+            } else {
+                document.getElementById('d' + i).style.width = offset + 'px'
             }
         }
 
@@ -105,15 +121,19 @@
     window.onresize = function() {
         var
             offset = getWidth() / ((counter + 1) / 2);
+
         for (i = 0; i < counter - 1; i += 1) {
             if (i % 2 !== 0) {
                 document.getElementById('d' + i).style.left = (((i + 1) / 2) * offset) + 'px';
                 document.getElementById('d' + (i + 1)).style.left = (((i + 1) / 2) * offset) + 'px'
+            } else {
+                document.getElementById('d' + i).style.width = offset + 'px'
             }
         }
+        document.getElementById('d' + (counter - 1)).style.width = offset + 'px';
     };
 
-    document.onmouseup = function (e) {
+    document.onmouseup = function () {
         dragObj = null
     };
 
@@ -128,6 +148,9 @@
         return color
     }
 
+    var d0 = document.createElement('div');
+    d0.setAttribute('id', 'd0');
+    document.getElementsByTagName('body')[0].appendChild(d0);
     document.getElementById('d0').style.background = getRandomColor();
 
     for (var i = 0; i < (Math.floor(Math.random() * 30)) + 1; i++) {
