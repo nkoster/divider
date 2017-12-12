@@ -75,7 +75,6 @@
     function newPart(background) {
 
         var
-            body = document.getElementsByTagName('body')[0],
             dSlider = document.createElement("div"),
             dSliderId = 'd' + counter,
             dContent = document.createElement("div"),
@@ -86,8 +85,8 @@
         dSlider.setAttribute('id', dSliderId);
         dContent.setAttribute('id', dContentId);
 
-        body.appendChild(dSlider);
-        body.appendChild(dContent);
+        document.body.appendChild(dSlider);
+        document.body.appendChild(dContent);
 
         dSlider.style.position = 'absolute';
         dSlider.style.left = dSliderLeft + 'px';
@@ -97,6 +96,7 @@
         dSlider.style.background = 'black';
         dSlider.style.cursor = 'ew-resize';
         dSlider.style.zIndex = '999';
+
         draggable(dSliderId);
 
         dContent.style.position = 'absolute';
@@ -128,7 +128,7 @@
                 document.getElementById('d' + i).style.width = offset + 'px'
             }
         }
-        document.getElementById('d' + (counter - 1)).style.width = offset + 'px';
+        document.getElementById('d' + (counter - 1)).style.width = offset + 'px'
     };
 
     document.onmouseup = function () {
@@ -148,7 +148,6 @@
 
     var d0 = document.createElement('div');
     d0.setAttribute('id', 'd0');
-    //document.getElementsByTagName('body')[0].appendChild(d0);
     document.body.appendChild(d0);
     d0.style.position = 'absolute';
     d0.style.left = '0';
@@ -158,8 +157,11 @@
     d0.style.background = getRandomColor();
     d0.style.width = getWidth() + 'px';
 
-    for (var i = 0; i < (Math.floor(Math.random() * 30)) + 1; i++) {
+    for (var i = 0; i < (Math.floor(Math.random() * 40)) + 1; i++) {
         newPart(getRandomColor())
     }
+
+    document.documentElement.style.overflow = 'hidden';
+    document.body.scroll = "no";
 
 })();
