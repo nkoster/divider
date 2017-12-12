@@ -45,8 +45,8 @@
         }
 
         if (isNaN(slideLimitLeft)) slideLimitLeft = 0;
-        if ((event.clientX > (slideLimitLeft + 10)) && (event.clientX < (slideLimitRight - 10))) {
-            dragObj.style.left = event.clientX + (event.clientX === 0 ? '' : 'px');
+        if ((event.clientX > (slideLimitLeft + 9)) && (event.clientX < (slideLimitRight - 7))) {
+            dragObj.style.left = (event.clientX - 2) + (event.clientX === 0 ? '' : 'px');
             if (next !== null) {
                 next.style.left = event.clientX + (event.clientX === 0 ? '' : 'px');
                 if (next.nextElementSibling) {
@@ -81,7 +81,7 @@
             dContent = document.createElement("div"),
             dContentId = 'd' + (counter + 1),
             offset = getWidth() / ((counter + 3) / 2),
-            dSliderLeft = offset + (((counter - 1) / 2) * offset);
+            dSliderLeft = offset + ((((counter - 1) / 2) * offset)) - 1;
 
         dSlider.setAttribute('id', dSliderId);
         dContent.setAttribute('id', dContentId);
@@ -108,23 +108,21 @@
 
         for (var i = 0; i < counter - 1; i += 1) {
             if (i % 2 !== 0) {
-                document.getElementById('d' + i).style.left = (((i + 1) / 2) * offset) + 'px';
+                document.getElementById('d' + i).style.left = ((((i + 1) / 2) * offset)) - 2 + 'px';
                 document.getElementById('d' + (i + 1)).style.left = (((i + 1) / 2) * offset) + 'px'
             } else {
                 document.getElementById('d' + i).style.width = offset + 'px'
             }
         }
-
         counter += 2
     }
 
     window.onresize = function() {
         var
             offset = getWidth() / ((counter + 1) / 2);
-
         for (i = 0; i < counter - 1; i += 1) {
             if (i % 2 !== 0) {
-                document.getElementById('d' + i).style.left = (((i + 1) / 2) * offset) + 'px';
+                document.getElementById('d' + i).style.left = ((((i + 1) / 2) * offset)) - 2 + 'px';
                 document.getElementById('d' + (i + 1)).style.left = (((i + 1) / 2) * offset) + 'px'
             } else {
                 document.getElementById('d' + i).style.width = offset + 'px'
@@ -150,8 +148,15 @@
 
     var d0 = document.createElement('div');
     d0.setAttribute('id', 'd0');
-    document.getElementsByTagName('body')[0].appendChild(d0);
-    document.getElementById('d0').style.background = getRandomColor();
+    //document.getElementsByTagName('body')[0].appendChild(d0);
+    document.body.appendChild(d0);
+    d0.style.position = 'absolute';
+    d0.style.left = '0';
+    d0.style.top = '0';
+    d0.style.right = '0';
+    d0.style.height = '100vh';
+    d0.style.background = getRandomColor();
+    d0.style.width = getWidth() + 'px';
 
     for (var i = 0; i < (Math.floor(Math.random() * 30)) + 1; i++) {
         newPart(getRandomColor())
