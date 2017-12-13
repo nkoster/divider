@@ -15,7 +15,7 @@
     }
 
     var
-        debug = false,
+        i, debug = false,
         counter = 1,
         dragObj = null;
 
@@ -93,7 +93,7 @@
         dSlider.style.top = '0';
         dSlider.style.width = '8px';
         dSlider.style.height = '100vh';
-        dSlider.style.background = 'black';
+        dSlider.style.background = 'white';
         dSlider.style.cursor = 'ew-resize';
         dSlider.style.zIndex = '999';
 
@@ -105,6 +105,7 @@
         dContent.style.right = '0';
         dContent.style.height = '100vh';
         dContent.style.background = background;
+        dContent.innerHTML = '<iframe width="100%" height="100%" src="http://nu.nl"></iframe>';
 
         for (var i = 0; i < counter - 1; i += 1) {
             if (i % 2 !== 0) {
@@ -135,6 +136,21 @@
         dragObj = null
     };
 
+    document.body.addEventListener('click', function (ev) {
+        if (parseInt(ev.target.id.substr(1)) % 2 === 0) {
+            var iframes = document.getElementsByTagName('iframe');
+            for (i = 0; i < iframes.length; i++) {
+                iframes[i].style.pointerEvents = 'auto';
+                iframes[i].addEventListener('mouseout', function () {
+                    var iframes = document.getElementsByTagName('iframe');
+                    for (i = 0; i < iframes.length; i++) {
+                        iframes[i].style.pointerEvents = 'none'
+                    }
+                })
+            }
+        }
+    }, false);
+
     document.onmousemove = dragMove;
 
     function getRandomColor() {
@@ -156,12 +172,18 @@
     d0.style.height = '100vh';
     d0.style.background = getRandomColor();
     d0.style.width = getWidth() + 'px';
+    d0.innerHTML = '<iframe width="100%" height="100%" src="http://nu.nl"></iframe>';
 
-    for (var i = 0; i < (Math.floor(Math.random() * 40)) + 1; i++) {
+
+    for (i = 0; i < (Math.floor(Math.random() * 40)) + 1; i++) {
         newPart(getRandomColor())
     }
 
     document.documentElement.style.overflow = 'hidden';
     document.body.scroll = "no";
+    var iframes = document.getElementsByTagName('iframe');
+    for (i = 0; i < iframes.length; i++) {
+        iframes[i].style.pointerEvents = 'none'
+    }
 
 })();
