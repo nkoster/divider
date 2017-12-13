@@ -17,7 +17,8 @@
     var
         i, debug = false,
         counter = 1,
-        dragObj = null;
+        dragObj = null,
+        testIframe = '<iframe width="100%" height="100%" src="http://peppengouw7.nl"></iframe>';
 
     function dragMove(event) {
 
@@ -105,7 +106,7 @@
         dContent.style.right = '0';
         dContent.style.height = '100vh';
         dContent.style.background = background;
-        dContent.innerHTML = '<iframe width="100%" height="100%" src="http://nu.nl"></iframe>';
+        dContent.innerHTML = testIframe;
 
         for (var i = 0; i < counter - 1; i += 1) {
             if (i % 2 !== 0) {
@@ -172,8 +173,7 @@
     d0.style.height = '100vh';
     d0.style.background = getRandomColor();
     d0.style.width = getWidth() + 'px';
-    d0.innerHTML = '<iframe width="100%" height="100%" src="http://nu.nl"></iframe>';
-
+    d0.innerHTML = testIframe;
 
     for (i = 0; i < (Math.floor(Math.random() * 40)) + 1; i++) {
         newPart(getRandomColor())
