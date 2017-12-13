@@ -175,7 +175,7 @@
     d0.style.width = getWidth() + 'px';
     d0.innerHTML = testIframe;
 
-    for (i = 0; i < (Math.floor(Math.random() * 40)) + 1; i++) {
+    for (i = 0; i < (Math.floor(Math.random() * 10)) + 1; i++) {
         newPart(getRandomColor())
     }
 
