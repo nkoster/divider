@@ -18,7 +18,7 @@
         i, debug = false,
         counter = 1,
         dragObj = null,
-        testIframe = '<iframe width="100%" height="100%" src="http://peppengouw7.nl"></iframe>';
+        testIframe = '';
 
     function dragMove(event) {
 
@@ -34,18 +34,17 @@
             return;
 
         var
-            elementId = dragObj.id,
-            eId = parseInt(elementId.substr(1)),
-            prev = document.getElementById('d' + (eId - 1)),
-            next = document.getElementById('d' + (eId + 1)),
+            prev = dragObj.previousElementSibling,
+            next = dragObj.nextElementSibling,
             slideLimitRight = getWidth(),
             slideLimitLeft = parseInt(prev.style.left);
 
-        if (eId < (counter - 2)) {
-            slideLimitRight = parseInt(document.getElementById('d' + (eId + 2)).style.left)
+        if (parseInt(dragObj.id.substr(1)) < (counter - 2)) {
+            slideLimitRight = parseInt(next.nextElementSibling.style.left)
         }
 
         if (isNaN(slideLimitLeft)) slideLimitLeft = 0;
+
         if ((event.clientX > (slideLimitLeft + 9)) && (event.clientX < (slideLimitRight - 7))) {
             dragObj.style.left = (event.clientX - 2) + (event.clientX === 0 ? '' : 'px');
             if (next !== null) {
@@ -175,7 +174,7 @@
     d0.style.width = getWidth() + 'px';
     d0.innerHTML = testIframe;
 
-    for (i = 0; i < (Math.floor(Math.random() * 10)) + 1; i++) {
+    for (i = 0; i < (Math.floor(Math.random() * 40)) + 1; i++) {
         newPart(getRandomColor())
     }
 
