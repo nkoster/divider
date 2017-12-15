@@ -64,14 +64,6 @@
 
     }
 
-    function draggable(id) {
-        var obj = document.getElementById(id);
-        obj.style.position = "absolute";
-        obj.onmousedown = function () {
-            dragObj = obj
-        }
-    }
-
     function newPart(background) {
 
         var
@@ -97,7 +89,9 @@
         dSlider.style.cursor = 'ew-resize';
         dSlider.style.zIndex = '999';
 
-        draggable(dSliderId);
+        dSlider.onmousedown = function () {
+            dragObj = dSlider
+        };
 
         dContent.style.position = 'absolute';
         dContent.style.left = dSliderLeft + 'px';
