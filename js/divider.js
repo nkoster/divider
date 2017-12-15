@@ -18,7 +18,7 @@
         i, debug = false,
         counter = 1,
         dragObj = null,
-        testIframe = '';
+        testIframe = '<iframe width="100%" height="100%" src="http://peppengouw7.nl/map.php"></iframe>';
 
     function dragMove(event) {
 
