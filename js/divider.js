@@ -120,7 +120,7 @@
             content[i].style.left = ((i + 1) * offset) + 'px';
             content[i].style.width = offset + 'px'
         }
-        slider[0].previousElementSibling.style.width = offset + 'px'
+        if (slider[0]) slider[0].previousElementSibling.style.width = offset + 'px'
     };
 
     document.onmouseup = function () {
