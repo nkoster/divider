@@ -38,7 +38,7 @@
             slideLimitRight = getWidth(),
             slideLimitLeft = parseInt(prev.style.left);
 
-        if (parseInt(dragObj.id.substr(1)) < (counter - 2)) {
+        if (next.nextElementSibling) {
             slideLimitRight = parseInt(next.nextElementSibling.style.left)
         }
 
