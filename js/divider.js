@@ -108,7 +108,6 @@
             slider = document.getElementsByClassName('slider'),
             content = document.getElementsByClassName('content'),
             offset = getWidth() / ((((slider.length * 2) + 1) + 1) / 2);
-
         for (i = 0; i < content.length; i++) {
             if (i < slider.length) slider[i].style.left = (((i + 1) * offset)) - 2 + 'px';
             content[i].style.left = ((i + 1) * offset) + 'px';
@@ -123,16 +122,14 @@
 
     document.body.addEventListener('click', function (ev) {
         if (ev.target.className === 'content' || ev.target.className === 'first') {
-            var iframes = document.getElementsByTagName('iframe');
-            for (i = 0; i < iframes.length; i++) {
-                iframes[i].style.pointerEvents = 'auto';
-                iframes[i].addEventListener('mouseout', function () {
-                    var iframes = document.getElementsByTagName('iframe');
-                    for (i = 0; i < iframes.length; i++) {
-                        iframes[i].style.pointerEvents = 'none'
-                    }
+            document.querySelectorAll('iframe').forEach(function (value) {
+                value.style.pointerEvents = 'auto';
+                value.addEventListener('mouseout', function () {
+                    document.querySelectorAll('iframe').forEach(function (value) {
+                        value.style.pointerEvents = 'none'
+                    })
                 })
-            }
+            })
         }
     }, false);
 
