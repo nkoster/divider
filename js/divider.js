@@ -59,37 +59,7 @@
 
     }
 
-    function newPart(background) {
-
-        var
-            dSlider = document.createElement("div"),
-            dContent = document.createElement("div");
-
-        dSlider.setAttribute('class', 'slider');
-        dContent.setAttribute('class', 'content');
-
-        document.body.appendChild(dSlider);
-        document.body.appendChild(dContent);
-
-        dSlider.style.position = 'absolute';
-        dSlider.style.top = '0';
-        dSlider.style.width = '8px';
-        dSlider.style.height = '100vh';
-        dSlider.style.background = 'white';
-        dSlider.style.cursor = 'ew-resize';
-        dSlider.style.zIndex = '999';
-
-        dSlider.onmousedown = function () {
-            dragObj = dSlider
-        };
-
-        dContent.style.position = 'absolute';
-        dContent.style.top = '0';
-        dContent.style.right = '0';
-        dContent.style.height = '100vh';
-        dContent.style.background = background;
-        dContent.innerHTML = testIframe;
-
+    function orderWidth() {
         var
             slider = document.getElementsByClassName('slider'),
             content = document.getElementsByClassName('content'),
@@ -100,20 +70,38 @@
             content[i].style.left = ((i + 1) * offset) + 'px';
             content[i].style.width = offset + 'px'
         }
-        slider[0].previousElementSibling.style.width = offset + 'px';
+        slider[0].previousElementSibling.style.width = offset + 'px'
+    }
+
+    function newPart(background) {
+        var
+            newSlider = document.createElement("div"),
+            newContent = document.createElement("div");
+        newSlider.setAttribute('class', 'slider');
+        newContent.setAttribute('class', 'content');
+        document.body.appendChild(newSlider);
+        document.body.appendChild(newContent);
+        newSlider.style.position = 'absolute';
+        newSlider.style.top = '0';
+        newSlider.style.width = '8px';
+        newSlider.style.height = '100vh';
+        newSlider.style.background = 'white';
+        newSlider.style.cursor = 'ew-resize';
+        newSlider.style.zIndex = '999';
+        newSlider.onmousedown = function () {
+            dragObj = newSlider
+        };
+        newContent.style.position = 'absolute';
+        newContent.style.top = '0';
+        newContent.style.right = '0';
+        newContent.style.height = '100vh';
+        newContent.style.background = background;
+        newContent.innerHTML = testIframe;
+        orderWidth()
     }
 
     window.onresize = function() {
-        var
-            slider = document.getElementsByClassName('slider'),
-            content = document.getElementsByClassName('content'),
-            offset = getWidth() / ((((slider.length * 2) + 1) + 1) / 2);
-        for (i = 0; i < content.length; i++) {
-            if (i < slider.length) slider[i].style.left = (((i + 1) * offset)) - 2 + 'px';
-            content[i].style.left = ((i + 1) * offset) + 'px';
-            content[i].style.width = offset + 'px'
-        }
-        if (slider[0]) slider[0].previousElementSibling.style.width = offset + 'px'
+        orderWidth()
     };
 
     document.onmouseup = function () {
