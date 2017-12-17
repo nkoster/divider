@@ -14,10 +14,9 @@
 
     var
         i, debug = false,
-        counter = 1,
         dragObj = null,
-        testIframe = '<iframe width="100%" height="100%" src="http://peppengouw7.nl/map.php"></iframe>';
-        // testIframe = '';
+        //testIframe = '<iframe width="100%" height="100%" src="http://peppengouw7.nl/map.php"></iframe>';
+        testIframe = '';
 
     function dragMove(event) {
 
@@ -64,9 +63,7 @@
 
         var
             dSlider = document.createElement("div"),
-            dContent = document.createElement("div"),
-            offset = getWidth() / ((counter + 3) / 2),
-            dSliderLeft = offset + ((((counter - 1) / 2) * offset)) - 1;
+            dContent = document.createElement("div");
 
         dSlider.setAttribute('class', 'slider');
         dContent.setAttribute('class', 'content');
@@ -75,7 +72,6 @@
         document.body.appendChild(dContent);
 
         dSlider.style.position = 'absolute';
-        dSlider.style.left = dSliderLeft + 'px';
         dSlider.style.top = '0';
         dSlider.style.width = '8px';
         dSlider.style.height = '100vh';
@@ -88,7 +84,6 @@
         };
 
         dContent.style.position = 'absolute';
-        dContent.style.left = dSliderLeft + 'px';
         dContent.style.top = '0';
         dContent.style.right = '0';
         dContent.style.height = '100vh';
@@ -97,7 +92,8 @@
 
         var
             slider = document.getElementsByClassName('slider'),
-            content = document.getElementsByClassName('content');
+            content = document.getElementsByClassName('content'),
+            offset = getWidth() / (((slider.length * 2) + 2) / 2);
 
         for (i = 0; i < content.length; i++) {
             if (i < slider.length) slider[i].style.left = (((i + 1) * offset)) - 2 + 'px';
@@ -105,15 +101,13 @@
             content[i].style.width = offset + 'px'
         }
         slider[0].previousElementSibling.style.width = offset + 'px';
-
-        counter += 2
     }
 
     window.onresize = function() {
         var
-            offset = getWidth() / ((counter + 1) / 2),
             slider = document.getElementsByClassName('slider'),
-            content = document.getElementsByClassName('content');
+            content = document.getElementsByClassName('content'),
+            offset = getWidth() / ((((slider.length * 2) + 1) + 1) / 2);
 
         for (i = 0; i < content.length; i++) {
             if (i < slider.length) slider[i].style.left = (((i + 1) * offset)) - 2 + 'px';
