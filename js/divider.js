@@ -15,8 +15,8 @@
     var
         i, debug = false,
         dragObj = null,
-        //testIframe = '<iframe width="100%" height="100%" src="http://peppengouw7.nl/map.php"></iframe>';
-        testIframe = '';
+        testIframe = '<iframe width="100%" height="100%" src="http://peppengouw7.nl/map.php"></iframe>';
+        //testIframe = '';
 
     function dragMove(event) {
 
@@ -139,8 +139,9 @@
     document.onmousemove = dragMove;
 
     function getRandomColor() {
-        var letters = '0123456789ABCDEF';
-        var color = '#';
+        var
+            letters = '0123456789ABCDEF',
+            color = '#';
         for (var i = 0; i < 6; i++) {
             color += letters[Math.floor(Math.random() * 16)]
         }
@@ -159,16 +160,15 @@
     first.style.width = getWidth() + 'px';
     first.innerHTML = testIframe;
 
-    for (i = 0; i < (Math.floor(Math.random() * 40)) + 1; i++) {
+    for (i = 0; i < (Math.floor(Math.random() * 20)) + 1; i++) {
         newPart(getRandomColor())
     }
 
     document.documentElement.style.overflow = 'hidden';
-    document.body.scroll = "no";
+    document.body.scroll = 'no';
 
-    var iframes = document.getElementsByTagName('iframe');
-    for (i = 0; i < iframes.length; i++) {
-        iframes[i].style.pointerEvents = 'none'
-    }
+    document.querySelectorAll('iframe').forEach(function (value) {
+        value.style.pointerEvents = 'none'
+    });
 
 })();
