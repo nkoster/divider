@@ -64,7 +64,7 @@
             slider = document.getElementsByClassName('slider'),
             content = document.getElementsByClassName('content'),
             offset = getWidth() / (((slider.length * 2) + 2) / 2);
-        for (i = 0; i < content.length; i++) {
+        for (var i = 0; i < content.length; i++) {
             if (i < slider.length) slider[i].style.left = (((i + 1) * offset)) - 2 + 'px';
             content[i].style.left = ((i + 1) * offset) + 'px';
             content[i].style.width = offset + 'px'
@@ -87,7 +87,8 @@
             firstContent.style.height = '100vh';
             firstContent.style.background = getRandomColor();
             firstContent.style.width = getWidth() + 'px';
-            firstContent.innerHTML = iframe
+            firstContent.innerHTML = iframe;
+            return
         }
 
         var
@@ -139,8 +140,11 @@
 
     document.onmousemove = dragMove;
 
-    for (i = 0; i < (Math.floor(Math.random() * 20)) + 1; i++) {
-        newPart('http://peppengouw7.nl/map.php')
+    var random = (Math.floor(Math.random() * 10)) + 1;
+    for (i = 0; i < random; i++) {
+        newPart('http://peppengouw7.nl/map.php?zoom=' +
+            (i + 6) +
+            (i % 2 !== 0 ? '&map=true' : ''))
     }
 
     document.documentElement.style.overflow = 'hidden';
