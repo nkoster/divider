@@ -140,10 +140,10 @@
 
     document.onmousemove = dragMove;
 
-    var random = (Math.floor(Math.random() * 10)) + 1;
+    var random = (Math.floor(Math.random() * 9)) + 2;
     for (i = 0; i < random; i++) {
         newPart('http://peppengouw7.nl/map.php?zoom=' +
-            (i + 6) +
+            (i + 10) +
             (i % 2 !== 0 ? '&map=true' : ''))
     }
 
