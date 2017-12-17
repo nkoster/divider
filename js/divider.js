@@ -18,14 +18,14 @@
         testIframe = '<iframe width="100%" height="100%" src="http://peppengouw7.nl/map.php"></iframe>';
         //testIframe = '';
 
-    function dragMove(event) {
+    function dragMove(ev) {
 
-        event = event || window.event;
+        ev = ev || window.ev;
 
         if (debug) {
             document.getElementById('debug').innerText =
                 (dragObj == null ? '' : dragObj.previousElementSibling.clientWidth) +
-                ' ' + event.clientX + ',' + event.clientY;
+                ' ' + ev.clientX + ',' + ev.clientY;
         }
 
         if (dragObj == null)
@@ -41,15 +41,15 @@
             slideLimitRight = parseInt(next.nextElementSibling.style.left)
         }
 
-        if ((event.clientX > (slideLimitLeft + 9)) && (event.clientX < (slideLimitRight - 7))) {
-            dragObj.style.left = (event.clientX - 2) + (event.clientX === 0 ? '' : 'px');
+        if ((ev.clientX > (slideLimitLeft + 9)) && (ev.clientX < (slideLimitRight - 7))) {
+            dragObj.style.left = (ev.clientX - 2) + 'px';
             if (next !== null) {
-                next.style.left = event.clientX + (event.clientX === 0 ? '' : 'px');
+                next.style.left = ev.clientX + 'px';
                 if (next.nextElementSibling) {
                     next.style.width = (parseInt(next.nextElementSibling.style.left) -
-                        parseInt(event.clientX) + 1) + 'px'
+                        parseInt(ev.clientX) + 1) + 'px'
                 } else {
-                    next.style.width = getWidth() - parseInt(event.clientX) + 'px'
+                    next.style.width = getWidth() - parseInt(ev.clientX) + 'px'
                 }
             }
             prev.style.width = (parseInt(dragObj.style.left) - parseInt(prev.style.left)) + 'px';
