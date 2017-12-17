@@ -4,11 +4,9 @@
         if (self.innerWidth) {
             return self.innerWidth;
         }
-
         if (document.documentElement && document.documentElement.clientWidth) {
             return document.documentElement.clientWidth;
         }
-
         if (document.body) {
             return document.body.clientWidth;
         }
@@ -18,7 +16,8 @@
         i, debug = false,
         counter = 1,
         dragObj = null,
-        testIframe = '<iframe width="100%" height="100%" src="http://peppengouw7.nl/map.php"></iframe>';
+        //testIframe = '<iframe width="100%" height="100%" src="http://peppengouw7.nl/map.php"></iframe>';
+        testIframe = '';
 
     function dragMove(event) {
 
@@ -57,9 +56,6 @@
                 }
             }
             prev.style.width = (parseInt(dragObj.style.left) - parseInt(prev.style.left)) + 'px';
-            if (dragObj.id === 'd1') {
-                document.getElementById('d0').style.width = event.clientX + 'px'
-            }
         }
 
     }
@@ -68,14 +64,12 @@
 
         var
             dSlider = document.createElement("div"),
-            dSliderId = 'd' + counter,
             dContent = document.createElement("div"),
-            dContentId = 'd' + (counter + 1),
             offset = getWidth() / ((counter + 3) / 2),
             dSliderLeft = offset + ((((counter - 1) / 2) * offset)) - 1;
 
-        dSlider.setAttribute('id', dSliderId);
-        dContent.setAttribute('id', dContentId);
+        dSlider.setAttribute('class', 'slider');
+        dContent.setAttribute('class', 'content');
 
         document.body.appendChild(dSlider);
         document.body.appendChild(dContent);
@@ -101,29 +95,32 @@
         dContent.style.background = background;
         dContent.innerHTML = testIframe;
 
-        for (var i = 0; i < counter - 1; i += 1) {
-            if (i % 2 !== 0) {
-                document.getElementById('d' + i).style.left = ((((i + 1) / 2) * offset)) - 2 + 'px';
-                document.getElementById('d' + (i + 1)).style.left = (((i + 1) / 2) * offset) + 'px'
-            } else {
-                document.getElementById('d' + i).style.width = offset + 'px'
-            }
+        var
+            slider = document.getElementsByClassName('slider'),
+            content = document.getElementsByClassName('content');
+
+        for (i = 0; i < content.length; i++) {
+            if (i < slider.length) slider[i].style.left = (((i + 1) * offset)) - 2 + 'px';
+            content[i].style.left = ((i + 1) * offset) + 'px';
+            content[i].style.width = offset + 'px'
         }
+        slider[0].previousElementSibling.style.width = offset + 'px';
+
         counter += 2
     }
 
     window.onresize = function() {
         var
-            offset = getWidth() / ((counter + 1) / 2);
-        for (i = 0; i < counter - 1; i += 1) {
-            if (i % 2 !== 0) {
-                document.getElementById('d' + i).style.left = ((((i + 1) / 2) * offset)) - 2 + 'px';
-                document.getElementById('d' + (i + 1)).style.left = (((i + 1) / 2) * offset) + 'px'
-            } else {
-                document.getElementById('d' + i).style.width = offset + 'px'
-            }
+            offset = getWidth() / ((counter + 1) / 2),
+            slider = document.getElementsByClassName('slider'),
+            content = document.getElementsByClassName('content');
+
+        for (i = 0; i < content.length; i++) {
+            if (i < slider.length) slider[i].style.left = (((i + 1) * offset)) - 2 + 'px';
+            content[i].style.left = ((i + 1) * offset) + 'px';
+            content[i].style.width = offset + 'px'
         }
-        document.getElementById('d' + (counter - 1)).style.width = offset + 'px'
+        slider[0].previousElementSibling.style.width = offset + 'px'
     };
 
     document.onmouseup = function () {
@@ -156,24 +153,24 @@
         return color
     }
 
-    var d0 = document.createElement('div');
-    d0.setAttribute('id', 'd0');
-    document.body.appendChild(d0);
-    d0.style.position = 'absolute';
-    d0.style.left = '0';
-    d0.style.top = '0';
-    d0.style.right = '0';
-    d0.style.height = '100vh';
-    d0.style.background = getRandomColor();
-    d0.style.width = getWidth() + 'px';
-    d0.innerHTML = testIframe;
+    var first = document.createElement('div');
+    document.body.appendChild(first);
+    first.style.position = 'absolute';
+    first.style.left = '0';
+    first.style.top = '0';
+    first.style.right = '0';
+    first.style.height = '100vh';
+    first.style.background = getRandomColor();
+    first.style.width = getWidth() + 'px';
+    first.innerHTML = testIframe;
 
-    for (i = 0; i < (Math.floor(Math.random() * 20)) + 1; i++) {
+    for (i = 1; i < (Math.floor(Math.random() * 40)) + 1; i++) {
         newPart(getRandomColor())
     }
 
     document.documentElement.style.overflow = 'hidden';
     document.body.scroll = "no";
+
     var iframes = document.getElementsByTagName('iframe');
     for (i = 0; i < iframes.length; i++) {
         iframes[i].style.pointerEvents = 'none'
