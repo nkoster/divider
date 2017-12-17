@@ -41,8 +41,6 @@
             slideLimitRight = parseInt(next.nextElementSibling.style.left)
         }
 
-        if (isNaN(slideLimitLeft)) slideLimitLeft = 0;
-
         if ((event.clientX > (slideLimitLeft + 9)) && (event.clientX < (slideLimitRight - 7))) {
             dragObj.style.left = (event.clientX - 2) + (event.clientX === 0 ? '' : 'px');
             if (next !== null) {
