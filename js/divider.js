@@ -16,8 +16,8 @@
         i, debug = false,
         counter = 1,
         dragObj = null,
-        //testIframe = '<iframe width="100%" height="100%" src="http://peppengouw7.nl/map.php"></iframe>';
-        testIframe = '';
+        testIframe = '<iframe width="100%" height="100%" src="http://peppengouw7.nl/map.php"></iframe>';
+        // testIframe = '';
 
     function dragMove(event) {
 
@@ -128,7 +128,7 @@
     };
 
     document.body.addEventListener('click', function (ev) {
-        if (parseInt(ev.target.id.substr(1)) % 2 === 0) {
+        if (ev.target.className === 'content' || ev.target.className === 'first') {
             var iframes = document.getElementsByTagName('iframe');
             for (i = 0; i < iframes.length; i++) {
                 iframes[i].style.pointerEvents = 'auto';
@@ -155,6 +155,7 @@
 
     var first = document.createElement('div');
     document.body.appendChild(first);
+    first.setAttribute('class', 'first');
     first.style.position = 'absolute';
     first.style.left = '0';
     first.style.top = '0';
