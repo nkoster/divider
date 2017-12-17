@@ -1,5 +1,15 @@
 (function () {
 
+    function getRandomColor() {
+        var
+            letters = '0123456789ABCDEF',
+            color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)]
+        }
+        return color
+    }
+    
     function getWidth() {
         if (self.innerWidth) {
             return self.innerWidth;
@@ -19,28 +29,21 @@
         //testIframe = '';
 
     function dragMove(ev) {
-
         ev = ev || window.ev;
-
         if (debug) {
             document.getElementById('debug').innerText =
                 (dragObj == null ? '' : dragObj.previousElementSibling.clientWidth) +
                 ' ' + ev.clientX + ',' + ev.clientY
         }
-
-        if (dragObj == null)
-            return;
-
+        if (dragObj == null) return;
         var
             prev = dragObj.previousElementSibling,
             next = dragObj.nextElementSibling,
             slideLimitRight = getWidth(),
             slideLimitLeft = parseInt(prev.style.left);
-
         if (next.nextElementSibling) {
             slideLimitRight = parseInt(next.nextElementSibling.style.left)
         }
-
         if ((ev.clientX > (slideLimitLeft + 9)) && (ev.clientX < (slideLimitRight - 7))) {
             dragObj.style.left = (ev.clientX - 2) + 'px';
             if (next !== null) {
@@ -54,7 +57,6 @@
             }
             prev.style.width = (parseInt(dragObj.style.left) - parseInt(prev.style.left)) + 'px';
         }
-
     }
 
     function orderWidth() {
@@ -62,7 +64,6 @@
             slider = document.getElementsByClassName('slider'),
             content = document.getElementsByClassName('content'),
             offset = getWidth() / (((slider.length * 2) + 2) / 2);
-
         for (i = 0; i < content.length; i++) {
             if (i < slider.length) slider[i].style.left = (((i + 1) * offset)) - 2 + 'px';
             content[i].style.left = ((i + 1) * offset) + 'px';
@@ -121,27 +122,17 @@
 
     document.onmousemove = dragMove;
 
-    function getRandomColor() {
-        var
-            letters = '0123456789ABCDEF',
-            color = '#';
-        for (var i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)]
-        }
-        return color
-    }
-
-    var first = document.createElement('div');
-    document.body.appendChild(first);
-    first.setAttribute('class', 'first');
-    first.style.position = 'absolute';
-    first.style.left = '0';
-    first.style.top = '0';
-    first.style.right = '0';
-    first.style.height = '100vh';
-    first.style.background = getRandomColor();
-    first.style.width = getWidth() + 'px';
-    first.innerHTML = testIframe;
+    var firstContent = document.createElement('div');
+    document.body.appendChild(firstContent);
+    firstContent.setAttribute('class', 'first');
+    firstContent.style.position = 'absolute';
+    firstContent.style.left = '0';
+    firstContent.style.top = '0';
+    firstContent.style.right = '0';
+    firstContent.style.height = '100vh';
+    firstContent.style.background = getRandomColor();
+    firstContent.style.width = getWidth() + 'px';
+    firstContent.innerHTML = testIframe;
 
     for (i = 0; i < (Math.floor(Math.random() * 20)) + 1; i++) {
         newPart(getRandomColor())
