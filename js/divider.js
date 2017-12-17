@@ -25,7 +25,7 @@
         if (debug) {
             document.getElementById('debug').innerText =
                 (dragObj == null ? '' : dragObj.previousElementSibling.clientWidth) +
-                ' ' + ev.clientX + ',' + ev.clientY;
+                ' ' + ev.clientX + ',' + ev.clientY
         }
 
         if (dragObj == null)
