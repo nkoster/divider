@@ -72,7 +72,24 @@
         slider[0].previousElementSibling.style.width = offset + 'px'
     }
 
-    function newPart(background) {
+    function newPart(url) {
+
+        var iframe = '<iframe width="100%" height="100%" src="' + url + '"></iframe>';
+
+        if (document.getElementsByClassName('first').length < 1) {
+            var firstContent = document.createElement('div');
+            document.body.appendChild(firstContent);
+            firstContent.setAttribute('class', 'first');
+            firstContent.style.position = 'absolute';
+            firstContent.style.left = '0';
+            firstContent.style.top = '0';
+            firstContent.style.right = '0';
+            firstContent.style.height = '100vh';
+            firstContent.style.background = getRandomColor();
+            firstContent.style.width = getWidth() + 'px';
+            firstContent.innerHTML = iframe
+        }
+
         var
             newSlider = document.createElement("div"),
             newContent = document.createElement("div");
@@ -94,8 +111,8 @@
         newContent.style.top = '0';
         newContent.style.right = '0';
         newContent.style.height = '100vh';
-        newContent.style.background = background;
-        newContent.innerHTML = testIframe;
+        newContent.style.background = getRandomColor();
+        newContent.innerHTML = iframe;
         orderWidth()
     }
 
@@ -122,20 +139,8 @@
 
     document.onmousemove = dragMove;
 
-    var firstContent = document.createElement('div');
-    document.body.appendChild(firstContent);
-    firstContent.setAttribute('class', 'first');
-    firstContent.style.position = 'absolute';
-    firstContent.style.left = '0';
-    firstContent.style.top = '0';
-    firstContent.style.right = '0';
-    firstContent.style.height = '100vh';
-    firstContent.style.background = getRandomColor();
-    firstContent.style.width = getWidth() + 'px';
-    firstContent.innerHTML = testIframe;
-
     for (i = 0; i < (Math.floor(Math.random() * 20)) + 1; i++) {
-        newPart(getRandomColor())
+        newPart('http://peppengouw7.nl/map.php')
     }
 
     document.documentElement.style.overflow = 'hidden';
