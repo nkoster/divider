@@ -72,7 +72,7 @@
 
     function newPart(url) {
 
-        var iframe = '<iframe width="100%" height="100%" src="' + url + '"></iframe>';
+        var iframe = '<iframe width="100%" height="100%" style="opacity:0" src="' + url + '"></iframe>';
 
         if (document.getElementsByClassName('first').length < 1) {
             var firstContent = document.createElement('div');
@@ -144,6 +144,14 @@
             (i % 2 !== 0 ? '&map=true' : '') +
             '&pic=' + i + '.png')
     }
+
+    window.setTimeout(function() {
+        document.querySelectorAll('iframe').forEach(function (value) {
+            value.style.transition = 'opacity';
+            value.style.transitionDuration = '0.8s';
+            value.style.opacity = '1';
+        });
+    }, 2000);
 
     document.documentElement.style.overflow = 'hidden';
     document.body.scroll = 'no';
