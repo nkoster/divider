@@ -25,7 +25,7 @@
     var
         i, debug = false,
         dragObj = null;
-    
+
     function dragMove(ev) {
         ev = ev || window.ev;
         if (debug) {
@@ -138,9 +138,9 @@
 
     document.onmousemove = dragMove;
 
-    for (i = 0; i < 7; i++) {
+    for (i = 0; i < 6; i++) {
         newPart('http://peppengouw7.nl/map.php?zoom=' +
-            (i + 10) +
+            (i + 11) +
             (i % 2 !== 0 ? '&map=true' : '') +
             '&pic=' + i + '.png')
     }
