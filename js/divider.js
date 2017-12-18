@@ -143,7 +143,8 @@
     for (i = 0; i < 7; i++) {
         newPart('http://peppengouw7.nl/map.php?zoom=' +
             (i + 10) +
-            (i % 2 !== 0 ? '&map=true' : ''))
+            (i % 2 !== 0 ? '&map=true' : '') +
+            '&pic=' + i + '.png')
     }
 
     document.documentElement.style.overflow = 'hidden';
