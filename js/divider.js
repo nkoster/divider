@@ -148,10 +148,10 @@
     window.setTimeout(function() {
         document.querySelectorAll('iframe').forEach(function (value) {
             value.style.transition = 'opacity';
-            value.style.transitionDuration = '0.8s';
+            value.style.transitionDuration = '1.2s';
             value.style.opacity = '1';
         });
-    }, 2000);
+    }, 10000);
 
     document.documentElement.style.overflow = 'hidden';
     document.body.scroll = 'no';
