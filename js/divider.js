@@ -148,7 +148,7 @@
     window.setTimeout(function() {
         document.querySelectorAll('iframe').forEach(function (value) {
             value.style.transition = 'opacity';
-            value.style.transitionDuration = '1.2s';
+            value.style.transitionDuration = '1.5s';
             value.style.opacity = '1';
         });
     }, 10000);
