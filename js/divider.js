@@ -123,19 +123,6 @@
         dragObj = null
     };
 
-    document.body.addEventListener('click', function (ev) {
-        if (ev.target.className === 'content' || ev.target.className === 'first') {
-            document.querySelectorAll('iframe').forEach(function (value) {
-                value.style.pointerEvents = 'auto';
-                value.addEventListener('mouseout', function () {
-                    document.querySelectorAll('iframe').forEach(function (value) {
-                        value.style.pointerEvents = 'none'
-                    })
-                })
-            })
-        }
-    }, false);
-
     document.onmousemove = dragMove;
 
     for (i = 0; i < 6; i++) {
@@ -144,6 +131,21 @@
             (i % 2 !== 0 ? '&map=true' : '') +
             '&pic=' + i + '.png')
     }
+
+    document.body.addEventListener('click', function (ev) {
+        if (ev.target.className === 'content' || ev.target.className === 'first') {
+            ev.target.style.borderTop = 'solid 6px white';
+            document.querySelectorAll('iframe').forEach(function (value) {
+                value.style.pointerEvents = 'auto';
+                value.addEventListener('mouseout', function () {
+                    document.querySelectorAll('iframe').forEach(function (value) {
+                        value.style.pointerEvents = 'none';
+                        value.parentNode.style.border = 'none'
+                    })
+                })
+            })
+        }
+    }, false);
 
     window.setTimeout(function() {
         document.querySelectorAll('iframe').forEach(function (value) {
