@@ -179,6 +179,11 @@
         ev = (ev == null ? event : ev);
         if (ev.shiftKey && ev.ctrlKey) {
             if (ev.keyCode === 69) {
+                document.querySelectorAll('.first').forEach(function (value) {
+                    if (value.style.borderTopWidth === '7px') {
+                        newPart('', value)
+                    }
+                });
                 document.querySelectorAll('.content').forEach(function (value) {
                     if (value.style.borderTopWidth === '7px') {
                         newPart('', value)
