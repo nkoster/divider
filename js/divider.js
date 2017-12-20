@@ -34,6 +34,12 @@
                 ' ' + ev.clientX + ',' + ev.clientY
         }
         if (dragObj == null) return;
+
+        // document.querySelectorAll('iframe').forEach(function (value) {
+        //     value.style.pointerEvents = 'none';
+        //     value.parentNode.style.border = 'none'
+        // });
+
         var
             prev = dragObj.previousElementSibling,
             next = dragObj.nextElementSibling,
@@ -134,13 +140,17 @@
 
     document.body.addEventListener('click', function (ev) {
         if (ev.target.className === 'content' || ev.target.className === 'first') {
-            ev.target.style.borderTop = 'solid 6px white';
+            ev.target.style.transition = 'border';
+            ev.target.style.transitionDuration = '0.3s';
+            ev.target.style.borderTop = 'solid 7px white';
             document.querySelectorAll('iframe').forEach(function (value) {
                 value.style.pointerEvents = 'auto';
                 value.addEventListener('mouseout', function () {
                     document.querySelectorAll('iframe').forEach(function (value) {
                         value.style.pointerEvents = 'none';
-                        value.parentNode.style.border = 'none'
+                        value.parentNode.style.transition = 'border';
+                        value.parentNode.style.transitionDuration = '0.3s';
+                        value.parentNode.style.border = 'solid 0px white'
                     })
                 })
             })
