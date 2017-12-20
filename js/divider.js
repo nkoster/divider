@@ -141,7 +141,7 @@
     document.body.addEventListener('click', function (ev) {
         if (ev.target.className === 'content' || ev.target.className === 'first') {
             ev.target.style.transition = 'border';
-            ev.target.style.transitionDuration = '0.3s';
+            ev.target.style.transitionDuration = '0.2s';
             ev.target.style.borderTop = 'solid 7px white';
             document.querySelectorAll('iframe').forEach(function (value) {
                 value.style.pointerEvents = 'auto';
@@ -149,7 +149,7 @@
                     document.querySelectorAll('iframe').forEach(function (value) {
                         value.style.pointerEvents = 'none';
                         value.parentNode.style.transition = 'border';
-                        value.parentNode.style.transitionDuration = '0.3s';
+                        value.parentNode.style.transitionDuration = '0.2s';
                         value.parentNode.style.border = 'solid 0px white'
                     })
                 })
