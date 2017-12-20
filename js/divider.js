@@ -1,5 +1,20 @@
 (function () {
 
+    // function handleKeyDown(e) {
+    //
+    //     var
+    //         evt = (e == null ? event : e),
+    //         shiftPressed = evt.shiftKey,
+    //         altPressed  =evt.altKey,
+    //         ctrlPressed =evt.ctrlKey;
+    //
+    //     if (shiftPressed && ctrlPressed) {
+    //         if (evt.keyCode === 69){
+    //             alert(evt.target.tagName);
+    //         }
+    //     }
+    // }
+
     function getRandomColor() {
         var
             letters = '0123456789ABCDEF',
@@ -34,11 +49,6 @@
                 ' ' + ev.clientX + ',' + ev.clientY
         }
         if (dragObj == null) return;
-
-        // document.querySelectorAll('iframe').forEach(function (value) {
-        //     value.style.pointerEvents = 'none';
-        //     value.parentNode.style.border = 'none'
-        // });
 
         var
             prev = dragObj.previousElementSibling,
@@ -156,6 +166,18 @@
             })
         }
     }, false);
+
+    document.onkeydown = function (ev) {
+        ev = (ev == null ? event : ev);
+        if (ev.shiftKey && ev.ctrlKey) {
+            if (ev.keyCode === 69) {
+                document.querySelectorAll('.content').forEach(function (value) {
+                    if (value.style.borderTopWidth === '7px')
+                        console.log(value.tagName)
+                })
+            }
+        }
+    };
 
     window.setTimeout(function() {
         document.querySelectorAll('iframe').forEach(function (value) {
