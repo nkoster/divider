@@ -86,7 +86,7 @@
         slider[0].previousElementSibling.style.width = offset + 'px'
     }
 
-    function newPart(url) {
+    function newPart(url, obj) {
 
         var iframe = '<iframe width="100%" height="100%" style="opacity:0" src="' + url + '"></iframe>';
 
@@ -106,12 +106,20 @@
         }
 
         var
-            newSlider = document.createElement("div"),
-            newContent = document.createElement("div");
+            newSlider = document.createElement('div'),
+            newContent = document.createElement('div');
+
         newSlider.setAttribute('class', 'slider');
         newContent.setAttribute('class', 'content');
-        document.body.appendChild(newSlider);
-        document.body.appendChild(newContent);
+
+        if (obj == null) {
+            document.body.appendChild(newSlider);
+            document.body.appendChild(newContent)
+        } else {
+            obj.parentNode.insertBefore(newContent, obj.nextElementSibling);
+            obj.parentNode.insertBefore(newSlider, obj.nextElementSibling)
+        }
+
         newSlider.style.position = 'absolute';
         newSlider.style.top = '0';
         newSlider.style.width = '8px';
@@ -145,7 +153,7 @@
         newPart('http://peppengouw7.nl/map.php?zoom=' +
             (i + 11) +
             (i % 2 !== 0 ? '&map=true' : '') +
-            '&pic=' + i + '.png')
+            '&pic=' + i + '.png', null)
     }
 
     document.body.addEventListener('click', function (ev) {
@@ -172,8 +180,9 @@
         if (ev.shiftKey && ev.ctrlKey) {
             if (ev.keyCode === 69) {
                 document.querySelectorAll('.content').forEach(function (value) {
-                    if (value.style.borderTopWidth === '7px')
-                        console.log(value.tagName)
+                    if (value.style.borderTopWidth === '7px') {
+                        newPart('', value)
+                    }
                 })
             }
         }
