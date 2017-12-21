@@ -68,6 +68,7 @@
             content[i].style.left = ((i + 0) * offset) + 'px';
             content[i].style.width = offset + 'px'
         }
+
         if (slider[0]) slider[0].previousElementSibling.style.width = offset + 'px'
     }
 
@@ -134,17 +135,6 @@
 
     document.onmousemove = dragMove;
 
-    // for (i = 0; i < 6; i++) {
-    //     newPart('http://peppengouw7.nl/map.php?zoom=' +
-    //         (i + 11) +
-    //         (i % 2 !== 0 ? '&map=true' : '') +
-    //         '&pic=' + i + '.png', null)
-    // }
-
-    // for (i = 0; i < 2; i++) {
-    //     newPart('', null)
-    // }
-
     newPart('', null);
 
     document.body.addEventListener('click', function (ev) {
@@ -184,11 +174,26 @@
                 if (document.getElementsByClassName('content').length > 1) {
                     document.querySelectorAll('.content').forEach(function (value) {
                         if (value.style.borderTopWidth === '7px') {
+                            // if (value.previousSibling != null) {
+                            //     console.log('PREV');
+                            //     value.parentNode.removeChild(value.previousSibling);
+                            //     orderWidth()
+                            // } else {
+                            //     console.log('NEXT');
+                            //     value.parentNode.removeChild(value);
+                            //     orderWidth()
+                            // }
                             value.parentNode.removeChild(value.previousSibling);
                             value.parentNode.removeChild(value);
                             orderWidth()
                         }
-                    })
+                    });
+                    if (document.getElementsByClassName('slider').length ===
+                    document.getElementsByClassName('content').length) {
+                        document.getElementsByClassName('slider')[0].parentNode
+                            .removeChild(document.getElementsByClassName('slider')[0]);
+                        orderWidth()
+                    }
                 }
             }
             if (ev.keyCode === 69) {
