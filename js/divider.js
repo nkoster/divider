@@ -65,20 +65,20 @@
             offset = getWidth() / (((slider.length * 2) + 2) / 2);
         for (var i = 0; i < content.length; i++) {
             if (i < slider.length) slider[i].style.left = (((i + 1) * offset)) - 2 + 'px';
-            content[i].style.left = ((i + 1) * offset) + 'px';
+            content[i].style.left = ((i + 0) * offset) + 'px';
             content[i].style.width = offset + 'px'
         }
-        slider[0].previousElementSibling.style.width = offset + 'px'
+        if (slider[0]) slider[0].previousElementSibling.style.width = offset + 'px'
     }
 
     function newPart(url, obj) {
 
         var iframe = '<iframe width="100%" height="100%" style="opacity:0" src="' + url + '"></iframe>';
 
-        if (document.getElementsByClassName('first').length < 1) {
+        if (document.getElementsByClassName('content').length < 1) {
             var firstContent = document.createElement('div');
             document.body.appendChild(firstContent);
-            firstContent.setAttribute('class', 'first');
+            firstContent.setAttribute('class', 'content');
             firstContent.style.position = 'absolute';
             firstContent.style.left = '0';
             firstContent.style.top = '0';
@@ -141,12 +141,14 @@
     //         '&pic=' + i + '.png', null)
     // }
 
-    for (i = 0; i < 2; i++) {
-        newPart('', null)
-    }
+    // for (i = 0; i < 2; i++) {
+    //     newPart('', null)
+    // }
+
+    newPart('', null);
 
     document.body.addEventListener('click', function (ev) {
-        if (ev.target.className === 'content' || ev.target.className === 'first') {
+        if (ev.target.className === 'content') {
             ev.target.style.transition = 'border';
             ev.target.style.transitionDuration = '0.2s';
             ev.target.style.borderTop = 'solid 7px white';
@@ -191,12 +193,6 @@
             }
             if (ev.keyCode === 69) {
                 ev.preventDefault();
-                document.querySelectorAll('.first').forEach(function (value) {
-                    if (value.style.borderTopWidth === '7px') {
-                        newPart('http://192.168.1.213:8080', value);
-                        value.firstChild.style.opacity = '1'
-                    }
-                });
                 document.querySelectorAll('.content').forEach(function (value) {
                     if (value.style.borderTopWidth === '7px') {
                         newPart('http://192.168.1.213:8080', value);
