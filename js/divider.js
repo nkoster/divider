@@ -1,20 +1,5 @@
 (function () {
 
-    // function handleKeyDown(e) {
-    //
-    //     var
-    //         evt = (e == null ? event : e),
-    //         shiftPressed = evt.shiftKey,
-    //         altPressed  =evt.altKey,
-    //         ctrlPressed =evt.ctrlKey;
-    //
-    //     if (shiftPressed && ctrlPressed) {
-    //         if (evt.keyCode === 69){
-    //             alert(evt.target.tagName);
-    //         }
-    //     }
-    // }
-
     function getRandomColor() {
         var
             letters = '0123456789ABCDEF',
@@ -178,7 +163,20 @@
     document.onkeydown = function (ev) {
         ev = (ev == null ? event : ev);
         if (ev.shiftKey && ev.ctrlKey) {
+            if (ev.keyCode === 68) {
+                ev.preventDefault();
+                if (document.getElementsByClassName('content').length > 1) {
+                    document.querySelectorAll('.content').forEach(function (value) {
+                        if (value.style.borderTopWidth === '7px') {
+                            value.parentNode.removeChild(value.nextSibling);
+                            value.parentNode.removeChild(value);
+                            orderWidth()
+                        }
+                    })
+                }
+            }
             if (ev.keyCode === 69) {
+                ev.preventDefault();
                 document.querySelectorAll('.first').forEach(function (value) {
                     if (value.style.borderTopWidth === '7px') {
                         newPart('', value)
