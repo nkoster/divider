@@ -134,11 +134,15 @@
 
     document.onmousemove = dragMove;
 
-    for (i = 0; i < 6; i++) {
-        newPart('http://peppengouw7.nl/map.php?zoom=' +
-            (i + 11) +
-            (i % 2 !== 0 ? '&map=true' : '') +
-            '&pic=' + i + '.png', null)
+    // for (i = 0; i < 6; i++) {
+    //     newPart('http://peppengouw7.nl/map.php?zoom=' +
+    //         (i + 11) +
+    //         (i % 2 !== 0 ? '&map=true' : '') +
+    //         '&pic=' + i + '.png', null)
+    // }
+
+    for (i = 0; i < 2; i++) {
+        newPart('', null)
     }
 
     document.body.addEventListener('click', function (ev) {
@@ -160,6 +164,16 @@
         }
     }, false);
 
+    function showFrames(ms) {
+        window.setTimeout(function () {
+            document.querySelectorAll('iframe').forEach(function (value) {
+                value.style.transition = 'opacity';
+                value.style.transitionDuration = '1.5s';
+                value.style.opacity = '1'
+            })
+        }, ms)
+    }
+
     document.onkeydown = function (ev) {
         ev = (ev == null ? event : ev);
         if (ev.shiftKey && ev.ctrlKey) {
@@ -179,25 +193,22 @@
                 ev.preventDefault();
                 document.querySelectorAll('.first').forEach(function (value) {
                     if (value.style.borderTopWidth === '7px') {
-                        newPart('', value)
+                        newPart('http://192.168.1.213:8080', value);
+                        value.firstChild.style.opacity = '1'
                     }
                 });
                 document.querySelectorAll('.content').forEach(function (value) {
                     if (value.style.borderTopWidth === '7px') {
-                        newPart('', value)
+                        newPart('http://192.168.1.213:8080', value);
+                        value.firstChild.style.opacity = '1'
                     }
-                })
+                });
+                showFrames(1000);
             }
         }
     };
 
-    window.setTimeout(function() {
-        document.querySelectorAll('iframe').forEach(function (value) {
-            value.style.transition = 'opacity';
-            value.style.transitionDuration = '1.5s';
-            value.style.opacity = '1';
-        });
-    }, 10000);
+    showFrames(10000);
 
     document.documentElement.style.overflow = 'hidden';
     document.body.scroll = 'no';
