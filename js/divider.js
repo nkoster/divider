@@ -199,7 +199,7 @@
         }
     };
 
-    showFrames(10000);
+    showFrames(1000);
 
     document.documentElement.style.overflow = 'hidden';
     document.body.scroll = 'no';
