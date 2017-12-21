@@ -68,7 +68,10 @@
             content[i].style.left = (i * offset) + 'px';
             content[i].style.width = offset + 'px'
         }
-        if (slider[0]) slider[0].previousElementSibling.style.width = offset + 'px'
+        if (slider.length > 0) {
+            if (slider[0].previousElementSibling != null)
+                slider[0].previousElementSibling.style.width = offset + 'px'
+        }
     }
 
     function newPart(url, obj) {
