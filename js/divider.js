@@ -23,7 +23,7 @@
     }
 
     var
-        i, debug = false,
+        debug = false,
         dragObj = null;
 
     function dragMove(ev) {
@@ -65,10 +65,9 @@
             offset = getWidth() / (((slider.length * 2) + 2) / 2);
         for (var i = 0; i < content.length; i++) {
             if (i < slider.length) slider[i].style.left = (((i + 1) * offset)) - 2 + 'px';
-            content[i].style.left = ((i + 0) * offset) + 'px';
+            content[i].style.left = (i * offset) + 'px';
             content[i].style.width = offset + 'px'
         }
-
         if (slider[0]) slider[0].previousElementSibling.style.width = offset + 'px'
     }
 
@@ -174,15 +173,6 @@
                 if (document.getElementsByClassName('content').length > 1) {
                     document.querySelectorAll('.content').forEach(function (value) {
                         if (value.style.borderTopWidth === '7px') {
-                            // if (value.previousSibling != null) {
-                            //     console.log('PREV');
-                            //     value.parentNode.removeChild(value.previousSibling);
-                            //     orderWidth()
-                            // } else {
-                            //     console.log('NEXT');
-                            //     value.parentNode.removeChild(value);
-                            //     orderWidth()
-                            // }
                             value.parentNode.removeChild(value.previousSibling);
                             value.parentNode.removeChild(value);
                             orderWidth()
