@@ -168,7 +168,7 @@
                 if (document.getElementsByClassName('content').length > 1) {
                     document.querySelectorAll('.content').forEach(function (value) {
                         if (value.style.borderTopWidth === '7px') {
-                            value.parentNode.removeChild(value.nextSibling);
+                            value.parentNode.removeChild(value.previousSibling);
                             value.parentNode.removeChild(value);
                             orderWidth()
                         }
