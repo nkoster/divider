@@ -1,15 +1,5 @@
 (function () {
 
-    function getRandomColor() {
-        var
-            letters = '0123456789ABCDEF',
-            color = '#';
-        for (var i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)]
-        }
-        return color
-    }
-    
     function getWidth() {
         if (self.innerWidth) {
             return self.innerWidth;
@@ -87,7 +77,6 @@
             firstContent.style.top = '0';
             firstContent.style.right = '0';
             firstContent.style.height = '100vh';
-            firstContent.style.background = getRandomColor();
             firstContent.style.width = getWidth() + 'px';
             firstContent.innerHTML = iframe;
             return
@@ -112,7 +101,7 @@
         newSlider.style.top = '0';
         newSlider.style.width = '8px';
         newSlider.style.height = '100vh';
-        newSlider.style.background = 'white';
+        newSlider.style.background = 'pink';
         newSlider.style.cursor = 'ew-resize';
         newSlider.style.zIndex = '999';
         newSlider.onmousedown = function () {
@@ -122,7 +111,6 @@
         newContent.style.top = '0';
         newContent.style.right = '0';
         newContent.style.height = '100vh';
-        newContent.style.background = getRandomColor();
         newContent.innerHTML = iframe;
         orderWidth()
     }
@@ -143,7 +131,7 @@
         if (ev.target.className === 'content') {
             ev.target.style.transition = 'border';
             ev.target.style.transitionDuration = '0.2s';
-            ev.target.style.borderTop = 'solid 7px white';
+            ev.target.style.borderTop = 'solid 7px pink';
             document.querySelectorAll('iframe').forEach(function (value) {
                 value.style.pointerEvents = 'auto';
                 value.addEventListener('mouseout', function () {
@@ -151,7 +139,7 @@
                         value.style.pointerEvents = 'none';
                         value.parentNode.style.transition = 'border';
                         value.parentNode.style.transitionDuration = '0.2s';
-                        value.parentNode.style.border = 'solid 0px white'
+                        value.parentNode.style.border = 'solid 0px pink'
                     })
                 })
             })
