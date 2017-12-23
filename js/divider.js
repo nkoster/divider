@@ -137,7 +137,7 @@
 
     document.onmousemove = dragMove;
 
-    newPart('', null);
+    newPart(prompt('Please enter a URL'), null);
 
     document.body.addEventListener('click', function (ev) {
         if (ev.target.className === 'content') {
@@ -193,7 +193,7 @@
                 ev.preventDefault();
                 document.querySelectorAll('.content').forEach(function (value) {
                     if (value.style.borderTopWidth === '7px') {
-                        newPart('http://192.168.1.213:8080', value);
+                        newPart(prompt('Please enter a URL'), value);
                         value.firstChild.style.opacity = '1'
                     }
                 });
