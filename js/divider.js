@@ -1,5 +1,15 @@
 (function () {
 
+    function getRandomColor() {
+        var
+            letters = '0123456789ABCDEF',
+            color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)]
+        }
+        return color
+    }
+
     function getWidth() {
         if (self.innerWidth) {
             return self.innerWidth;
@@ -78,6 +88,7 @@
             firstContent.style.right = '0';
             firstContent.style.height = '100vh';
             firstContent.style.width = getWidth() + 'px';
+            if (url === 'http://') firstContent.style.background = getRandomColor();
             firstContent.innerHTML = iframe;
             return
         }
@@ -101,7 +112,7 @@
         newSlider.style.top = '0';
         newSlider.style.width = '8px';
         newSlider.style.height = '100vh';
-        newSlider.style.background = 'pink';
+        newSlider.style.background = '#DDDDDD';
         newSlider.style.cursor = 'ew-resize';
         newSlider.style.zIndex = '999';
         newSlider.onmousedown = function () {
@@ -111,6 +122,7 @@
         newContent.style.top = '0';
         newContent.style.right = '0';
         newContent.style.height = '100vh';
+        if (url === 'http://') newContent.style.background = getRandomColor();
         newContent.innerHTML = iframe;
         orderWidth()
     }
@@ -125,13 +137,15 @@
 
     document.onmousemove = dragMove;
 
-    newPart(prompt('Please enter a URL'), null);
+    var url = prompt('Please enter a URL');
+    if (url.substr(0, 4) !== 'http') url = 'http://' + url;
+    newPart(url, null);
 
     document.body.addEventListener('click', function (ev) {
         if (ev.target.className === 'content') {
             ev.target.style.transition = 'border';
             ev.target.style.transitionDuration = '0.2s';
-            ev.target.style.borderTop = 'solid 7px pink';
+            ev.target.style.borderTop = 'solid 6px #DDDDDD';
             document.querySelectorAll('iframe').forEach(function (value) {
                 value.style.pointerEvents = 'auto';
                 value.addEventListener('mouseout', function () {
@@ -139,7 +153,7 @@
                         value.style.pointerEvents = 'none';
                         value.parentNode.style.transition = 'border';
                         value.parentNode.style.transitionDuration = '0.2s';
-                        value.parentNode.style.border = 'solid 0px pink'
+                        value.parentNode.style.border = 'solid 0px #DDDDDD'
                     })
                 })
             })
@@ -163,7 +177,7 @@
                 ev.preventDefault();
                 if (document.getElementsByClassName('content').length > 1) {
                     document.querySelectorAll('.content').forEach(function (value) {
-                        if (value.style.borderTopWidth === '7px') {
+                        if (value.style.borderTopWidth === '6px') {
                             value.parentNode.removeChild(value.previousSibling);
                             value.parentNode.removeChild(value);
                             orderWidth()
@@ -180,8 +194,10 @@
             if (ev.keyCode === 69) {
                 ev.preventDefault();
                 document.querySelectorAll('.content').forEach(function (value) {
-                    if (value.style.borderTopWidth === '7px') {
-                        newPart(prompt('Please enter a URL'), value);
+                    if (value.style.borderTopWidth === '6px') {
+                        var url = prompt('Please enter a URL');
+                        if (url.substr(0, 4) !== 'http') url = 'http://' + url;
+                        newPart(url, value);
                         value.firstChild.style.opacity = '1'
                     }
                 });
