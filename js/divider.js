@@ -22,6 +22,18 @@
         }
     }
 
+    function getHeight(){
+        if (self.innerHeight) {
+            return self.innerHeight;
+        }
+        if (document.documentElement && document.documentElement.clientHeight) {
+            return document.documentElement.clientHeight;
+        }
+        if (document.body) {
+            return document.body.clientHeight;
+        }
+    }
+
     var
         debug = false,
         dragObj = null;
@@ -74,7 +86,7 @@
         }
     }
 
-    function newPart(url, obj) {
+    function newPartX(url, obj) {
 
         var iframe = '<iframe width="100%" height="100%" style="opacity:0" src="' + url + '"></iframe>';
 
@@ -86,7 +98,7 @@
             firstContent.style.left = '0';
             firstContent.style.top = '0';
             firstContent.style.right = '0';
-            firstContent.style.height = '100vh';
+            firstContent.style.height = getHeight() + 'px';
             firstContent.style.width = getWidth() + 'px';
             if (url === 'http://') firstContent.style.background = getRandomColor();
             firstContent.innerHTML = iframe;
@@ -111,7 +123,7 @@
         newSlider.style.position = 'absolute';
         newSlider.style.top = '0';
         newSlider.style.width = '8px';
-        newSlider.style.height = '100vh';
+        newSlider.style.height = getHeight() + 'px';
         newSlider.style.background = '#DDDDDD';
         newSlider.style.cursor = 'ew-resize';
         newSlider.style.zIndex = '999';
@@ -121,10 +133,53 @@
         newContent.style.position = 'absolute';
         newContent.style.top = '0';
         newContent.style.right = '0';
-        newContent.style.height = '100vh';
+        newContent.style.height = getHeight() + 'px';
         if (url === 'http://') newContent.style.background = getRandomColor();
         newContent.innerHTML = iframe;
         orderWidth()
+    }
+
+    function newPartY(url, obj) {
+
+        var
+            iframe = '<iframe width="100%" height="100%" style="opacity:0" src="' + url + '"></iframe>',
+            newContentTop = document.createElement('div'),
+            newSlider = document.createElement('div'),
+            newContentBottom = document.createElement('div');
+
+        obj.style.transition = 'border';
+        obj.style.transitionDuration = '0.2s';
+        obj.style.border = 'solid 0px #DDDDDD';
+
+        newContentTop.setAttribute('class', 'contentY');
+        newContentTop.innerHTML = obj.innerHTML;
+        newContentTop.style.position = 'absolute';
+        newContentTop.style.top = '0';
+        newContentTop.style.right = '0';
+        newContentTop.style.width = '100%';
+        newContentTop.style.height = '50%';
+        obj.innerHTML = '';
+        obj.appendChild(newContentTop);
+
+        newSlider.style.position = 'absolute';
+        newSlider.style.left = '0';
+        newSlider.style.top = '50%';
+        newSlider.style.width = getWidth() + 'px';
+        newSlider.style.height = '8px';
+        newSlider.style.background = '#DDDDDD';
+        newSlider.style.cursor = 'ns-resize';
+        newSlider.style.zIndex = '999';
+        obj.appendChild(newSlider);
+
+        newContentBottom.setAttribute('class', 'contentY');
+        newContentBottom.innerHTML = iframe;
+        newContentBottom.style.position = 'absolute';
+        newContentBottom.style.bottom = '0';
+        newContentBottom.style.right = '0';
+        newContentBottom.style.width = '100%';
+        newContentBottom.style.height = '50%';
+        if (url === 'http://') newContentBottom.style.background = getRandomColor();
+        obj.appendChild(newContentBottom);
     }
 
     window.onresize = function() {
@@ -139,7 +194,7 @@
 
     var url = prompt('Please enter a URL');
     if (url.substr(0, 4) !== 'http') url = 'http://' + url;
-    newPart(url, null);
+    newPartX(url, null);
 
     document.body.addEventListener('click', function (ev) {
         if (ev.target.className === 'content') {
@@ -154,6 +209,22 @@
                         value.parentNode.style.transition = 'border';
                         value.parentNode.style.transitionDuration = '0.2s';
                         value.parentNode.style.border = 'solid 0px #DDDDDD'
+                    })
+                })
+            })
+        }
+        if (ev.target.className === 'contentY') {
+            ev.target.style.transition = 'border';
+            ev.target.style.transitionDuration = '0.2s';
+            ev.target.style.borderTop = 'solid 6px yellow';
+            document.querySelectorAll('iframe').forEach(function (value) {
+                value.style.pointerEvents = 'auto';
+                value.addEventListener('mouseout', function () {
+                    document.querySelectorAll('iframe').forEach(function (value) {
+                        value.style.pointerEvents = 'none';
+                        value.parentNode.style.transition = 'border';
+                        value.parentNode.style.transitionDuration = '0.2s';
+                        value.parentNode.style.border = 'solid 0px yellow'
                     })
                 })
             })
@@ -197,11 +268,24 @@
                     if (value.style.borderTopWidth === '6px') {
                         var url = prompt('Please enter a URL');
                         if (url.substr(0, 4) !== 'http') url = 'http://' + url;
-                        newPart(url, value);
+                        newPartX(url, value);
                         value.firstChild.style.opacity = '1'
                     }
                 });
                 showFrames(1000);
+            }
+            if (ev.keyCode === 79) {
+                ev.preventDefault();
+                console.log('---> ' + ev.target.className);
+                document.querySelectorAll('.content').forEach(function (value) {
+                    if (value.style.borderTopWidth === '6px') {
+                        var url = prompt('Please enter a URL');
+                        if (url.substr(0, 4) !== 'http') url = 'http://' + url;
+                        newPartY(url, value);
+                        value.firstChild.style.opacity = '1'
+                    }
+                });
+                showFrames(1000)
             }
         }
     };
