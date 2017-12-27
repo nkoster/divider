@@ -202,7 +202,9 @@
         newContentTop.style.top = '0';
         newContentTop.style.right = '0';
         newContentTop.style.width = '100%';
-        newContentTop.style.height = (getHeight() / 2) + 'px';
+        newContentTop.style.boxSizing = 'border-box';
+        //newContentTop.style.height = (getHeight() / 2) + 'px';
+        newContentTop.style.height = '0';
         obj.innerHTML = '';
         obj.appendChild(newContentTop);
 
@@ -226,10 +228,13 @@
         newContentBottom.style.bottom = '0';
         newContentBottom.style.right = '0';
         newContentBottom.style.width = '100%';
-        newContentBottom.style.height = '50%';
+        newContentBottom.style.height = '0';
         newContentBottom.style.boxSizing = 'border-box';
         if (url === 'http://') newContentBottom.style.background = getRandomColor();
         obj.appendChild(newContentBottom);
+
+        //orderWidth();
+        orderHeight()
     }
 
     window.onresize = function() {
@@ -317,9 +322,19 @@
                         if (value.style.borderTopWidth === '6px') {
                             if (value.previousSibling) value.parentNode.removeChild(value.previousSibling);
                             value.parentNode.removeChild(value);
-                            //orderWidth()
+                            orderHeight()
                         }
                     });
+                    if (document.getElementsByClassName('sliderY').length ===
+                        document.getElementsByClassName('contentY').length) {
+                        document.getElementsByClassName('sliderY')[0].parentNode
+                            .removeChild(document.getElementsByClassName('sliderY')[0]);
+                        orderHeight()
+                    }
+                }
+                if (document.getElementsByClassName('contentY').length === 1) {
+                    document.getElementsByClassName('contentY')[0].parentNode.innerHTML =
+                        document.getElementsByClassName('contentY')[0].innerHTML;
                 }
             }
             if (ev.keyCode === 69) {
