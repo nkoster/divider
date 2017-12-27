@@ -47,26 +47,53 @@
         }
         if (dragObj == null) return;
 
-        var
-            prev = dragObj.previousElementSibling,
-            next = dragObj.nextElementSibling,
-            slideLimitRight = getWidth(),
-            slideLimitLeft = parseInt(prev.style.left);
-        if (next.nextElementSibling) {
-            slideLimitRight = parseInt(next.nextElementSibling.style.left)
-        }
-        if ((ev.clientX > (slideLimitLeft + 9)) && (ev.clientX < (slideLimitRight - 7))) {
-            dragObj.style.left = (ev.clientX - 2) + 'px';
-            if (next !== null) {
-                next.style.left = ev.clientX + 'px';
-                if (next.nextElementSibling) {
-                    next.style.width = (parseInt(next.nextElementSibling.style.left) -
-                        parseInt(ev.clientX) + 1) + 'px'
-                } else {
-                    next.style.width = getWidth() - parseInt(ev.clientX) + 'px'
-                }
+        if (dragObj.className === 'slider') {
+
+            var
+                prevX = dragObj.previousElementSibling,
+                nextX = dragObj.nextElementSibling,
+                slideLimitRight = getWidth(),
+                slideLimitLeft = parseInt(prevX.style.left);
+            if (nextX.nextElementSibling) {
+                slideLimitRight = parseInt(nextX.nextElementSibling.style.left)
             }
-            prev.style.width = (parseInt(dragObj.style.left) - parseInt(prev.style.left)) + 'px';
+            if ((ev.clientX > (slideLimitLeft + 9)) && (ev.clientX < (slideLimitRight - 7))) {
+                dragObj.style.left = (ev.clientX - 2) + 'px';
+                if (nextX !== null) {
+                    nextX.style.left = ev.clientX + 'px';
+                    if (nextX.nextElementSibling) {
+                        nextX.style.width = (parseInt(nextX.nextElementSibling.style.left) -
+                            parseInt(ev.clientX) + 1) + 'px'
+                    } else {
+                        nextX.style.width = getWidth() - parseInt(ev.clientX) + 'px'
+                    }
+                }
+                prevX.style.width = (parseInt(dragObj.style.left) - parseInt(prevX.style.left)) + 'px';
+            }
+
+        }
+        if (dragObj.className === 'sliderY') {
+            var
+                prevY = dragObj.previousElementSibling,
+                nextY = dragObj.nextElementSibling,
+                slideLimitBottom = getHeight(),
+                slideLimitTop = parseInt(prevY.style.top);
+            if (nextY.nextElementSibling) {
+                slideLimitBottom = parseInt(nextY.nextElementSibling.style.top)
+            }
+            if ((ev.clientY > (slideLimitTop + 9)) && (ev.clientY < (slideLimitBottom - 7))) {
+                dragObj.style.top = (ev.clientY - 2) + 'px';
+                if (nextY !== null) {
+                    nextY.style.top = ev.clientY + 'px';
+                    if (nextY.nextElementSibling) {
+                        nextY.style.height = (parseInt(nextY.nextElementSibling.style.top) -
+                            parseInt(ev.clientY) + 1) + 'px'
+                    } else {
+                        nextY.style.height = getHeight() - parseInt(ev.clientY) + 'px'
+                    }
+                }
+                prevY.style.height = (parseInt(dragObj.style.top) - parseInt(prevY.style.top)) + 'px';
+            }
         }
     }
 
@@ -86,6 +113,22 @@
         }
     }
 
+    function orderHeight() {
+        var
+            slider = document.getElementsByClassName('sliderY'),
+            content = document.getElementsByClassName('contentY'),
+            offset = getHeight() / (((slider.length * 2) + 2) / 2);
+        for (var i = 0; i < content.length; i++) {
+            if (i < slider.length) slider[i].style.top = (((i + 1) * offset)) - 2 + 'px';
+            content[i].style.top = (i * offset) + 'px';
+            content[i].style.height = offset + 'px'
+        }
+        if (slider.length > 0) {
+            if (slider[0].previousElementSibling != null)
+                slider[0].previousElementSibling.style.height = offset + 'px'
+        }
+    }
+
     function newPartX(url, obj) {
 
         var iframe = '<iframe width="100%" height="100%" style="opacity:0" src="' + url + '"></iframe>';
@@ -98,8 +141,9 @@
             firstContent.style.left = '0';
             firstContent.style.top = '0';
             firstContent.style.right = '0';
-            firstContent.style.height = getHeight() + 'px';
+            firstContent.style.height = '100vh';
             firstContent.style.width = getWidth() + 'px';
+            firstContent.style.boxSizing = 'border-box';
             if (url === 'http://') firstContent.style.background = getRandomColor();
             firstContent.innerHTML = iframe;
             return
@@ -123,7 +167,7 @@
         newSlider.style.position = 'absolute';
         newSlider.style.top = '0';
         newSlider.style.width = '8px';
-        newSlider.style.height = getHeight() + 'px';
+        newSlider.style.height = '100vh';
         newSlider.style.background = '#DDDDDD';
         newSlider.style.cursor = 'ew-resize';
         newSlider.style.zIndex = '999';
@@ -133,7 +177,8 @@
         newContent.style.position = 'absolute';
         newContent.style.top = '0';
         newContent.style.right = '0';
-        newContent.style.height = getHeight() + 'px';
+        newContent.style.height = '100vh';
+        newContent.style.boxSizing = 'border-box';
         if (url === 'http://') newContent.style.background = getRandomColor();
         newContent.innerHTML = iframe;
         orderWidth()
@@ -157,18 +202,22 @@
         newContentTop.style.top = '0';
         newContentTop.style.right = '0';
         newContentTop.style.width = '100%';
-        newContentTop.style.height = '50%';
+        newContentTop.style.height = (getHeight() / 2) + 'px';
         obj.innerHTML = '';
         obj.appendChild(newContentTop);
 
         newSlider.style.position = 'absolute';
         newSlider.style.left = '0';
-        newSlider.style.top = '50%';
+        newSlider.style.top = (getHeight() / 2) + 'px';
         newSlider.style.width = getWidth() + 'px';
         newSlider.style.height = '8px';
         newSlider.style.background = '#DDDDDD';
         newSlider.style.cursor = 'ns-resize';
         newSlider.style.zIndex = '999';
+        newSlider.setAttribute('class', 'sliderY');
+        newSlider.onmousedown = function () {
+            dragObj = newSlider
+        };
         obj.appendChild(newSlider);
 
         newContentBottom.setAttribute('class', 'contentY');
@@ -178,12 +227,14 @@
         newContentBottom.style.right = '0';
         newContentBottom.style.width = '100%';
         newContentBottom.style.height = '50%';
+        newContentBottom.style.boxSizing = 'border-box';
         if (url === 'http://') newContentBottom.style.background = getRandomColor();
         obj.appendChild(newContentBottom);
     }
 
     window.onresize = function() {
-        orderWidth()
+        orderWidth();
+        orderHeight()
     };
 
     document.onmouseup = function () {
@@ -255,11 +306,20 @@
                         }
                     });
                     if (document.getElementsByClassName('slider').length ===
-                    document.getElementsByClassName('content').length) {
+                        document.getElementsByClassName('content').length) {
                         document.getElementsByClassName('slider')[0].parentNode
                             .removeChild(document.getElementsByClassName('slider')[0]);
                         orderWidth()
                     }
+                }
+                if (document.getElementsByClassName('contentY').length > 1) {
+                    document.querySelectorAll('.contentY').forEach(function (value) {
+                        if (value.style.borderTopWidth === '6px') {
+                            if (value.previousSibling) value.parentNode.removeChild(value.previousSibling);
+                            value.parentNode.removeChild(value);
+                            //orderWidth()
+                        }
+                    });
                 }
             }
             if (ev.keyCode === 69) {
@@ -276,7 +336,6 @@
             }
             if (ev.keyCode === 79) {
                 ev.preventDefault();
-                console.log('---> ' + ev.target.className);
                 document.querySelectorAll('.content').forEach(function (value) {
                     if (value.style.borderTopWidth === '6px') {
                         var url = prompt('Please enter a URL');
