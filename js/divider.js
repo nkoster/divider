@@ -167,8 +167,10 @@
         newSlider.style.position = 'absolute';
         newSlider.style.top = '0';
         newSlider.style.width = '8px';
+        newSlider.style.borderLeft = 'solid 1px #CCCCCC';
+        newSlider.style.borderRight = 'solid 1px #222222';
         newSlider.style.height = '100vh';
-        newSlider.style.background = '#DDDDDD';
+        newSlider.style.background = '#666666';
         newSlider.style.cursor = 'ew-resize';
         newSlider.style.zIndex = '999';
         newSlider.onmousedown = function () {
@@ -203,17 +205,18 @@
         newContentTop.style.right = '0';
         newContentTop.style.width = '100%';
         newContentTop.style.boxSizing = 'border-box';
-        //newContentTop.style.height = (getHeight() / 2) + 'px';
         newContentTop.style.height = '0';
         obj.innerHTML = '';
         obj.appendChild(newContentTop);
 
         newSlider.style.position = 'absolute';
-        newSlider.style.left = '0';
+        newSlider.style.left = '8px';
         newSlider.style.top = (getHeight() / 2) + 'px';
         newSlider.style.width = getWidth() + 'px';
         newSlider.style.height = '8px';
-        newSlider.style.background = '#DDDDDD';
+        newSlider.style.borderTop = 'solid 1px #CCCCCC';
+        newSlider.style.borderBottom = 'solid 1px #222222';
+        newSlider.style.background = '#666666';
         newSlider.style.cursor = 'ns-resize';
         newSlider.style.zIndex = '999';
         newSlider.setAttribute('class', 'sliderY');
@@ -233,7 +236,6 @@
         if (url === 'http://') newContentBottom.style.background = getRandomColor();
         obj.appendChild(newContentBottom);
 
-        //orderWidth();
         orderHeight()
     }
 
