@@ -39,7 +39,7 @@
         dragObj = null;
 
     function dragMove(ev) {
-        ev = ev || window.ev;
+        ev = ev || window.event;
         if (debug) {
             document.getElementById('debug').innerText =
                 (dragObj == null ? '' : dragObj.previousElementSibling.clientWidth) +
