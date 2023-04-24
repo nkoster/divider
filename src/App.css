@@ -1,0 +1,26 @@
+.App {
+    /*position: relative;*/
+    background-color: aquamarine;
+    /*border: solid 1px red;*/
+    display: flex;
+    flex-direction: row;
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    height: 100vh;
+    overflow: hidden;
+}
+
+.left-side {
+    background-color: aqua;
+    height: 100%;
+    width: calc(100% - 10px);
+    overflow: auto;
+}
+
+.right-side {
+    position: relative;
+    /*background-color: aquamarine;*/
+    height: 100%;
+    flex-grow: 1;
+    overflow: hidden;
+}
